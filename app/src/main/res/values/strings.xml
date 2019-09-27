@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">ChatOnMe</string>
-    <string name="welcome_to">Welcome to</string>
+    <string name="welcome_to_chatonme">Welcome to Chat OnMe</string>
     <string name="icon">icon</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+
+
 
 </resources>
