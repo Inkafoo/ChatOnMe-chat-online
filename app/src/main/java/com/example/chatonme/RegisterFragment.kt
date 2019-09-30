@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentRegisterBinding
+import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_register.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
@@ -27,10 +27,17 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater)
 
+        navigateToLoginFragment(binding.alreadyRegisteredButton)
 
 
 
         return binding.root
+    }
+
+    private fun navigateToLoginFragment(view: View){
+        RxView.clicks(view).map {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }.subscribe()
     }
 
     private fun setRegisteredButtonTextColor(){

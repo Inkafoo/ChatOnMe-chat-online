@@ -7,6 +7,9 @@ buildscript {
     ext.nav_version = '1.0.0'
     //Toasty
     ext.toasty_version = '1.4.2'
+    //Reactive
+    ext.rxandroid_version = '2.1.1'
+    ext.rxjava2_version = '2.1.1'
 
 
 
