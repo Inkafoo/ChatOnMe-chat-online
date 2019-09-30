@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentMainBinding
+import com.jakewharton.rxbinding2.view.RxView
+import java.util.concurrent.TimeUnit
 
 
 class MainFragment : Fragment() {
@@ -29,11 +31,11 @@ class MainFragment : Fragment() {
     }
 
     private fun navigate(view: View, target: Int){
-        view.setOnClickListener{
+        RxView.clicks(view).map{
             when (findNavController().currentDestination!!.id) {
                 R.id.mainFragment -> findNavController().navigate(target)
             }
-        }
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
 }

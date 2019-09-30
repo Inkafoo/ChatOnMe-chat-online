@@ -11,6 +11,10 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="already_member_login_me">Already a member! Login me</string>
+    <string name="short_name_error">Name too short</string>
+    <string name="email_error">Invalid email address</string>
+    <string name="password_length_error">Password length too short</string>
+    <string name="password_mismatch_error">Passwords do not match</string>
 
     <!--fragment_login-->
     <string name="forgot_password">Forgot password</string>

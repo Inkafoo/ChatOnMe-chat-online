@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentLoginBinding
-import com.example.chatonme.databinding.FragmentRegisterBinding
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
@@ -37,7 +36,7 @@ class LoginFragment : Fragment() {
     private fun navigateToRegistrationFragment(view: View){
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }.subscribe()
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
     private fun setNotMemberButtonTextColor() {

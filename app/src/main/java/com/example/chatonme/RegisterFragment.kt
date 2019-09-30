@@ -12,8 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentRegisterBinding
+import com.example.chatonme.helpers.Validators
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_register.*
+import java.util.concurrent.TimeUnit
 
 
 class RegisterFragment : Fragment() {
@@ -28,17 +30,60 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(inflater)
 
         navigateToLoginFragment(binding.alreadyRegisteredButton)
-
-
-
+        registerUserListener()
 
         return binding.root
+    }
+
+    private fun registerUserListener(){
+        RxView.clicks(binding.registerButton).map {
+            val name = binding.nameEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+            val confirmPassword = binding.passwordConfirmEditText.text.toString()
+
+            if (validateUser(name, email, password, confirmPassword) && Validators.isValidUser(
+                    name,
+                    email,
+                    password,
+                    confirmPassword
+                )){
+                //createUserAccount
+            }
+        }.throttleFirst(1, TimeUnit.SECONDS).subscribe()
+    }
+
+    private fun  validateUser(
+        name: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ): Boolean{
+        var flag = true
+        if(!Validators.validateName(name)){
+            binding.nameEditText.error = getString(R.string.short_name_error)
+            flag = false
+        }
+        if(!Validators.validateEmail(email)){
+            binding.emailEditText.error = getString(R.string.email_error)
+            flag = false
+        }
+        if(!Validators.validatePasswordLength(password)){
+            binding.passwordEditText.error = getString(R.string.password_length_error)
+            flag = false
+        }
+        if(!Validators.validatePasswordConfirmation(password, confirmPassword)){
+            binding.passwordConfirmEditText.error = getString(R.string.password_mismatch_error)
+            flag = false
+        }
+
+        return  flag
     }
 
     private fun navigateToLoginFragment(view: View){
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }.subscribe()
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
     private fun setRegisteredButtonTextColor(){
