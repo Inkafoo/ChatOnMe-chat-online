@@ -49,7 +49,17 @@ dependencies {
     //RxView-Binding
     implementation "com.jakewharton.rxbinding2:rxbinding:$rxjava2_version"
 
+    //Firebase Authentication
+    implementation "com.google.firebase:firebase-auth:$firebase_version"
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+
+    //Firebase Database
+    implementation "com.google.firebase:firebase-database:$firebase_database_version"
+
+
+
 
 }
 
 kapt{generateStubs = true}
+apply plugin: 'com.google.gms.google-services'

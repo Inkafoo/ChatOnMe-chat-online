@@ -3,14 +3,25 @@
 buildscript {
     ext.kotlin_version = '1.3.50'
 
-    //Navigation Architecture
+    //Navigation architecture
     ext.nav_version = '1.0.0'
     //Toasty
     ext.toasty_version = '1.4.2'
     //Reactive
     ext.rxandroid_version = '2.1.1'
     ext.rxjava2_version = '2.1.1'
-
+    //Firebase
+    ext.firebase_analytics = '17.2.0'
+    //Google service
+    ext.google_services = '4.3.2'
+    //Firebase Authentication
+    ext.firebase_version = '19.1.0'
+    //Firebase Core
+    ext.firebase_core_version = '17.2.0'
+    //Firebase Database
+    ext.firebase_database_version = '19.1.0'
+    //Firebasea UI
+    ext.firebase_ui = '5.0.0'
 
 
     repositories {
@@ -19,8 +30,9 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:$google_services"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

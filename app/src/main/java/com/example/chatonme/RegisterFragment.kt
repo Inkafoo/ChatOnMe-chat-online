@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentRegisterBinding
 import com.example.chatonme.helpers.Validators
+import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_register.*
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +35,8 @@ class RegisterFragment : Fragment() {
 
         navigateToLoginFragment(binding.alreadyRegisteredButton)
         registerUserListener()
+
+        firebaseAuth = FirebaseAuth.getInstance()
 
         return binding.root
     }
@@ -48,7 +54,7 @@ class RegisterFragment : Fragment() {
                     password,
                     confirmPassword
                 )){
-                //createUserAccount
+                createUserOnFirebase(email, password)
             }
         }.throttleFirst(1, TimeUnit.SECONDS).subscribe()
     }
@@ -78,6 +84,23 @@ class RegisterFragment : Fragment() {
         }
 
         return  flag
+    }
+
+    private fun createUserOnFirebase(email: String, password: String){
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
+            Toasty.error(this.context!!,"$it", Toasty.LENGTH_SHORT).show()
+        }.addOnSuccessListener {
+            navigate()
+        }
+    }
+
+    /**
+     * Navigates to Login fragment from Registration fragment
+     */
+    private fun navigate() {
+        when (findNavController().currentDestination!!.id) {
+            R.id.registerFragment -> findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
     }
 
     private fun navigateToLoginFragment(view: View){
