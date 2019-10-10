@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/actions_nav"
+    android:id="@+id/navigation_main"
     app:startDestination="@id/mainFragment">
 
 
@@ -61,6 +61,8 @@
             app:popUpTo="@+id/registerFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
+
 
 
 </navigation>

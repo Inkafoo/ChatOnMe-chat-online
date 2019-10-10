@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.example.chatonme.databinding.FragmentLoginBinding
+import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
