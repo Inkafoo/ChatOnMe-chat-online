@@ -1,4 +1,4 @@
-package com.example.chatonme
+package com.example.chatonme.views.login_and_registration
 
 
 import android.graphics.Color
@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentRegisterBinding
 import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
@@ -98,7 +99,7 @@ class RegisterFragment : Fragment() {
      */
     private fun navigate() {
         when (findNavController().currentDestination!!.id) {
-            R.id.registerFragment -> findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            R.id.registerFragment -> findNavController().navigate(R.id.action_registerFragment_to_connectBottomNavigationFragment)
         }
     }
 

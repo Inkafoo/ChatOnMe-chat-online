@@ -1,4 +1,4 @@
-package com.example.chatonme
+package com.example.chatonme.views.login_and_registration
 
 
 import android.graphics.Color
@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.chatonme.databinding.FragmentLoginBinding
 import androidx.navigation.fragment.findNavController
+import com.example.chatonme.R
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit

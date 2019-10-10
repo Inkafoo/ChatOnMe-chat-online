@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RegisterFragment"
+        tools:context=".views.login_and_registration.RegisterFragment"
         android:background="@color/primaryLightColor"
         android:orientation="vertical">
 

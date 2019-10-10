@@ -1,4 +1,4 @@
-package com.example.chatonme
+package com.example.chatonme.views
 
 
 import android.os.Bundle
@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 
@@ -26,6 +29,12 @@ class MainFragment : Fragment() {
         navigate(binding.loginBtn, R.id.action_mainFragment_to_loginFragment)
         navigate(binding.registerBtn, R.id.action_mainFragment_to_registerFragment)
 
+        //get user
+        val user = FirebaseAuth.getInstance().currentUser
+        when{
+            user != null -> navigateToHomeFragment()
+        }
+
 
         return binding.root
     }
@@ -36,6 +45,12 @@ class MainFragment : Fragment() {
                 R.id.mainFragment -> findNavController().navigate(target)
             }
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+
+    private fun navigateToHomeFragment(){
+        when (findNavController().currentDestination!!.id) {
+            R.id.mainFragment -> findNavController().navigate(R.id.action_mainFragment_to_connectBottomNavigationFragment)
+        }
     }
 
 }

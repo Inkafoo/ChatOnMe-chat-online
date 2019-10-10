@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.chatonme.MainFragment"
+        android:name="com.example.chatonme.views.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -26,11 +26,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_connectBottomNavigationFragment"
+            app:destination="@id/connectBottomNavigationFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.chatonme.RegisterFragment"
+        android:name="com.example.chatonme.views.login_and_registration.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -43,11 +46,15 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/loginFragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_registerFragment_to_connectBottomNavigationFragment"
+            app:destination="@id/connectBottomNavigationFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.chatonme.LoginFragment"
+        android:name="com.example.chatonme.views.login_and_registration.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -62,7 +69,11 @@
             app:popUpToInclusive="true"/>
     </fragment>
 
-
+    <fragment
+        android:id="@+id/connectBottomNavigationFragment"
+        android:name="com.example.chatonme.views.home.ConnectBottomNavigationFragment"
+        android:label="fragment_connect_bottom_navigation"
+        tools:layout="@layout/fragment_connect_bottom_navigation" />
 
 
 </navigation>

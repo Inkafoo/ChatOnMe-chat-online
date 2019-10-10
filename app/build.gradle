@@ -57,9 +57,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
 
 
-
-
 }
 
-kapt{generateStubs = true}
+kapt { generateStubs = true }
 apply plugin: 'com.google.gms.google-services'
