@@ -22,6 +22,10 @@ buildscript {
     ext.firebase_database_version = '19.1.0'
     //Firebasea UI
     ext.firebase_ui = '5.0.0'
+    //Circle Image View
+    ext.circle_image_version = '3.0.1'
+    //Picasso
+    ext.picasso_version = '2.71828'
 
 
     repositories {

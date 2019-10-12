@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    //Navigation architecture
+    //Navigation Architecture
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
 
@@ -55,6 +55,12 @@ dependencies {
 
     //Firebase Database
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
+
+    //Circle Image View
+    implementation "de.hdodenhof:circleimageview:$circle_image_version"
+
+    //Picasso - image downloading
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 
 
 }
