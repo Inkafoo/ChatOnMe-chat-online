@@ -41,6 +41,9 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Get user's data and validate them
+     */
     private fun registerUserListener(){
         RxView.clicks(binding.registerButton).map {
             val name = binding.nameEditText.text.toString()
@@ -59,6 +62,9 @@ class RegisterFragment : Fragment() {
         }.throttleFirst(1, TimeUnit.SECONDS).subscribe()
     }
 
+    /**
+     * Check is user's registration data are correct
+     */
     private fun  validateUser(
         name: String,
         email: String,
@@ -86,6 +92,9 @@ class RegisterFragment : Fragment() {
         return  flag
     }
 
+    /**
+     * Create user in firebase database
+     */
     private fun createUserOnFirebase(email: String, password: String){
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
             Toasty.error(this.context!!,"$it", Toasty.LENGTH_SHORT).show()
@@ -95,7 +104,7 @@ class RegisterFragment : Fragment() {
     }
 
     /**
-     * Navigates to Login fragment from Registration fragment
+     * Navigates to loginFragment from registerFragment
      */
     private fun navigate() {
         when (findNavController().currentDestination!!.id) {
@@ -103,12 +112,18 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    /**
+     * Navigates to loginFragment
+     */
     private fun navigateToLoginFragment(view: View){
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
+    /**
+     * Set color of part alreadyRegisteredButton text
+     */
     private fun setRegisteredButtonTextColor(){
         val spannable = SpannableString(getString(R.string.already_member_login_me))
         spannable.setSpan(

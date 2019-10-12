@@ -9,29 +9,37 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
+import com.example.chatonme.databinding.FragmentConnectBottomNavigationBinding
 import kotlinx.android.synthetic.main.fragment_connect_bottom_navigation.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class ConnectBottomNavigationFragment : Fragment() {
 
+    private lateinit var binding: FragmentConnectBottomNavigationBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_connect_bottom_navigation, container, false)
+        binding = FragmentConnectBottomNavigationBinding.inflate(inflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = Navigation.findNavController(requireActivity(),
-            R.id.bottomNavigationFragment
-        )
-        bottomNavView.setupWithNavController(navController)
+        setNavController()
+
     }
 
+    /**
+     * Set bottomNavView as NavController
+     */
+    private fun setNavController(){
+        val navController = Navigation.findNavController(requireActivity(),
+            R.id.bottomNavigationFragment)
+
+        bottomNavView.setupWithNavController(navController)
+    }
 
 }

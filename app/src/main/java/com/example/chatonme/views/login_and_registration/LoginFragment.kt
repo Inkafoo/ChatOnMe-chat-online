@@ -34,12 +34,18 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Navigate to registerFragment
+     */
     private fun navigateToRegistrationFragment(view: View){
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
+    /**
+     * Set color of part notMemberButton text
+     */
     private fun setNotMemberButtonTextColor() {
         val spannable = SpannableString(getString(R.string.not_a_member_sign_up_now))
         spannable.setSpan(

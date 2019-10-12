@@ -4,6 +4,9 @@
     <string name="icon">icon</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
 
     <!--fragment_register-->
     <string name="name">Name</string>

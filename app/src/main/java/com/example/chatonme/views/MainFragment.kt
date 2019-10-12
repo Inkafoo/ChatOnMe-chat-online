@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentMainBinding
@@ -39,6 +38,10 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+
+    /**
+     * Go to target (login/register fragment)
+     */
     private fun navigate(view: View, target: Int){
         RxView.clicks(view).map{
             when (findNavController().currentDestination!!.id) {
@@ -47,6 +50,10 @@ class MainFragment : Fragment() {
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
+
+    /**
+     * Navigates to homeFragment
+     */
     private fun navigateToHomeFragment(){
         when (findNavController().currentDestination!!.id) {
             R.id.mainFragment -> findNavController().navigate(R.id.action_mainFragment_to_connectBottomNavigationFragment)
