@@ -12,8 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.chatonme.databinding.FragmentLoginBinding
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.example.chatonme.R
+import com.example.chatonme.helpers.Validators
+import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +26,7 @@ import java.util.concurrent.TimeUnit
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +36,72 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater)
 
         navigateToRegistrationFragment(binding.notMemberButton)
+        loginUserListener(binding.loginButton)
+        forgottenPasswordListener(binding.forgetPasswordButton)
+
 
         return binding.root
+    }
+
+    /**
+     * Valid of credentials
+     */
+    private fun loginUserListener(view: View){
+        RxView.clicks(view).map {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            if(validateUserCredentials(email, password)){
+                requestFirebaseCredentialValidation(email, password)
+            }
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+
+    /**
+     * Login user
+     */
+    private fun requestFirebaseCredentialValidation(email: String, password: String) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+           if(it.isSuccessful){
+               navigateToHome()
+               Toasty.success(this.context!!, "Logged in", Toasty.LENGTH_SHORT).show()
+           }else{
+               Toasty.error(this.context!!, "${it.exception!!.message}", Toasty.LENGTH_LONG).show()
+           }
+        }
+    }
+
+
+
+    //TODO: Handle recovery password, add inject depedency, create messeging class
+    /**
+     * Handles forgotten password
+     */
+    private fun forgottenPasswordListener(view: View){
+        RxView.clicks(view).map {
+            //MaterialDialog(this.context!!).show {
+            //    input { materialDialog, text ->
+            //    }
+            //    positiveButton(R.string.email)
+            //}
+
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+
+    /**
+     * Validate User credentials
+     */
+    private fun validateUserCredentials(email: String, password: String): Boolean {
+        var flag = true
+        if (!Validators.validateEmail(email)) {
+            binding.emailEditText.error = getString(R.string.email_error)
+            flag = false
+        }
+        if (!Validators.validatePasswordLength(password)) {
+            binding.passwordEditText.error = getString(R.string.password_length_error)
+            flag = false
+        }
+        return flag
     }
 
     /**
@@ -41,6 +111,15 @@ class LoginFragment : Fragment() {
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+
+    /**
+     * Navigate to connectBottomNavigationFragment
+     */
+    private fun navigateToHome(){
+        when (findNavController().currentDestination!!.id) {
+            R.id.loginFragment -> findNavController().navigate(R.id.action_loginFragment_to_connectBottomNavigationFragment)
+        }
     }
 
     /**
@@ -56,6 +135,7 @@ class LoginFragment : Fragment() {
         )
         notMemberButton.text = spannable
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -67,6 +67,10 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/registerFragment"
             app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_loginFragment_to_connectBottomNavigationFragment"
+            app:destination="@id/connectBottomNavigationFragment" />
     </fragment>
 
     <fragment

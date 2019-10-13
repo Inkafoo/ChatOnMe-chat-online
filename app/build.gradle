@@ -53,6 +53,9 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.firebase:firebase-core:$firebase_core_version"
 
+    //Firebase UI
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui"
+    
     //Firebase Database
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
 
@@ -61,6 +64,10 @@ dependencies {
 
     //Picasso - image downloading
     implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    //Material Dialogs
+    implementation "com.afollestad.material-dialogs:core:$material_dialog_version"
+    implementation "com.afollestad.material-dialogs:input:$material_dialog_version"
 
 
 }
