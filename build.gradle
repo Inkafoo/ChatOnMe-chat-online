@@ -28,6 +28,10 @@ buildscript {
     ext.picasso_version = '2.71828'
     //Material dialogs
     ext.material_dialog_version = '3.1.1'
+    //Koin
+    ext.koin_version = '2.0.1'
+
+
 
 
     repositories {
