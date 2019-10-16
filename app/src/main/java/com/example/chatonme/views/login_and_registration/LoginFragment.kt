@@ -3,6 +3,7 @@ package com.example.chatonme.views.login_and_registration
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -12,21 +13,25 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.chatonme.databinding.FragmentLoginBinding
 import androidx.navigation.fragment.findNavController
-import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.example.chatonme.R
+import com.example.chatonme.di.components.CustomDialog
+import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
-import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private val messaging: Messaging by inject()
+    private val customDialog: CustomDialog by inject()
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,27 +69,34 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
            if(it.isSuccessful){
                navigateToHome()
-               Toasty.success(this.context!!, "Logged in", Toasty.LENGTH_SHORT).show()
+               messaging.showToast(getString(R.string.logged_in))
            }else{
-               Toasty.error(this.context!!, "${it.exception!!.message}", Toasty.LENGTH_LONG).show()
+              messaging.showToast(it.exception!!.message.toString())
            }
         }
     }
 
 
-
-    //TODO: Handle recovery password, add inject depedency, create messeging class
     /**
      * Handles forgotten password
      */
     private fun forgottenPasswordListener(view: View){
         RxView.clicks(view).map {
-            //MaterialDialog(this.context!!).show {
-            //    input { materialDialog, text ->
-            //    }
-            //    positiveButton(R.string.email)
-            //}
-
+            customDialog.materialDialog(this.context!!).show {
+                title(text = getString(R.string.enter_email_for_password_reset))
+                input(
+                    hint = getString(R.string.email),
+                    waitForPositiveButton = true,
+                    allowEmpty = false,
+                    inputType = InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+                )
+                positiveButton(text = getString(R.string.request_password)){
+                    requestPasswordReset(this.getInputField().text.toString())
+                }
+                negativeButton(text = getString(R.string.cancel)) {
+                    this.dismiss()
+                }
+            }
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
@@ -102,6 +114,19 @@ class LoginFragment : Fragment() {
             flag = false
         }
         return flag
+    }
+
+    /**
+     * handle password reset
+     */
+    private fun requestPasswordReset(email: String){
+        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if(it.isSuccessful){
+                messaging.showToast(getString(R.string.email_sent))
+            }else{
+                messaging.showToast(getString(R.string.something_went_wrong_try_again))
+            }
+        }
     }
 
     /**
@@ -135,7 +160,6 @@ class LoginFragment : Fragment() {
         )
         notMemberButton.text = spannable
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
