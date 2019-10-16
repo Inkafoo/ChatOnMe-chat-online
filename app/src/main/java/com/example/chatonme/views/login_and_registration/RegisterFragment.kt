@@ -13,16 +13,20 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentRegisterBinding
+import com.example.chatonme.di.components.CustomDialog
+import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
-import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_register.*
+import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 
 class RegisterFragment : Fragment() {
 
+    private val messaging: Messaging by inject()
+    private val customDialog: CustomDialog by inject()
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -96,9 +100,13 @@ class RegisterFragment : Fragment() {
      * Create user in firebase database
      */
     private fun createUserOnFirebase(email: String, password: String){
+        val customDialog = customDialog.progressDialog(this.context!!, getString(R.string.registering_user))
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
-            Toasty.error(this.context!!,"$it", Toasty.LENGTH_SHORT).show()
+            customDialog.cancel()
+            messaging.showToast(it.message.toString())
         }.addOnSuccessListener {
+            customDialog.cancel()
+            messaging.showToast(getString(R.string.registered_successfully))
             navigate()
         }
     }

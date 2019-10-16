@@ -68,6 +68,7 @@ dependencies {
     //Material Dialogs
     implementation "com.afollestad.material-dialogs:core:$material_dialog_version"
     implementation "com.afollestad.material-dialogs:input:$material_dialog_version"
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
 
     //Koin
     implementation "org.koin:koin-android:$koin_version"

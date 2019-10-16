@@ -66,12 +66,16 @@ class LoginFragment : Fragment() {
      * Login user
      */
     private fun requestFirebaseCredentialValidation(email: String, password: String) {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+       val progressDialog = customDialog.progressDialog(this.context!!, getString(R.string.logging_in))
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
            if(it.isSuccessful){
                navigateToHome()
+               progressDialog.cancel()
                messaging.showToast(getString(R.string.logged_in))
            }else{
-              messaging.showToast(it.exception!!.message.toString())
+               progressDialog.cancel()
+               messaging.showToast(it.exception!!.message.toString())
            }
         }
     }
@@ -120,10 +124,13 @@ class LoginFragment : Fragment() {
      * handle password reset
      */
     private fun requestPasswordReset(email: String){
+        val progressDialog = customDialog.progressDialog(this.context!!, getString(R.string.sending_email))
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
             if(it.isSuccessful){
+                progressDialog.cancel()
                 messaging.showToast(getString(R.string.email_sent))
             }else{
+                progressDialog.cancel()
                 messaging.showToast(getString(R.string.something_went_wrong_try_again))
             }
         }
