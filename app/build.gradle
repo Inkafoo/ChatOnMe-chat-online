@@ -62,7 +62,7 @@ dependencies {
     //Circle Image View
     implementation "de.hdodenhof:circleimageview:$circle_image_version"
 
-    //Picasso - image downloading
+    //Picasso
     implementation "com.squareup.picasso:picasso:$picasso_version"
 
     //Material Dialogs

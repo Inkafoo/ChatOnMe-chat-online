@@ -19,7 +19,7 @@ buildscript {
     //Firebase core
     ext.firebase_core_version = '17.2.0'
     //Firebase database
-    ext.firebase_database_version = '19.1.0'
+    ext.firebase_database_version = '19.2.0'
     //Firebasea UI
     ext.firebase_ui = '6.0.2'
     //Circle image view

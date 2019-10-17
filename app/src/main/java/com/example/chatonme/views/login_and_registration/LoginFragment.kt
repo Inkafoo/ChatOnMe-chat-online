@@ -72,10 +72,10 @@ class LoginFragment : Fragment() {
            if(it.isSuccessful){
                navigateToHome()
                progressDialog.cancel()
-               messaging.showToast(getString(R.string.logged_in))
+               messaging.showToast("success",getString(R.string.logged_in))
            }else{
                progressDialog.cancel()
-               messaging.showToast(it.exception!!.message.toString())
+               messaging.showToast("error", it.exception!!.message.toString())
            }
         }
     }
@@ -128,10 +128,10 @@ class LoginFragment : Fragment() {
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
             if(it.isSuccessful){
                 progressDialog.cancel()
-                messaging.showToast(getString(R.string.email_sent))
+                messaging.showToast("success", getString(R.string.email_sent))
             }else{
                 progressDialog.cancel()
-                messaging.showToast(getString(R.string.something_went_wrong_try_again))
+                messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
             }
         }
     }

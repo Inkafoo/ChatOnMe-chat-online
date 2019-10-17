@@ -63,7 +63,7 @@ class RegisterFragment : Fragment() {
                 )){
                 createUserOnFirebase(email, password)
             }
-        }.throttleFirst(1, TimeUnit.SECONDS).subscribe()
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
     /**
@@ -103,10 +103,10 @@ class RegisterFragment : Fragment() {
         val customDialog = customDialog.progressDialog(this.context!!, getString(R.string.registering_user))
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
             customDialog.cancel()
-            messaging.showToast(it.message.toString())
+            messaging.showToast("error", it.message.toString())
         }.addOnSuccessListener {
             customDialog.cancel()
-            messaging.showToast(getString(R.string.registered_successfully))
+            messaging.showToast("success", getString(R.string.registered_successfully))
             navigate()
         }
     }
