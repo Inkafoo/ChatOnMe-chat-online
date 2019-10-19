@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "799988223379-5urtrmn0etilt74ku037tg85ed1d6srh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.chatonme",
-            "certificate_hash": "b1a5a8e6cdccd9dadb253fe8c73360e2cfad5be9"
-          }
-        },
-        {
           "client_id": "799988223379-6k7tbrdgdrka9b17jri2ia6qlp826vv9.apps.googleusercontent.com",
           "client_type": 3
         }

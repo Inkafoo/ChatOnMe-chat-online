@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/emailTextView"
+            android:id="@+id/presentationTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -46,7 +46,7 @@
             android:stretchColumns="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailTextView">
+            app:layout_constraintTop_toBottomOf="@+id/presentationTextView">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -59,6 +59,7 @@
                     android:textColor="@color/textColorWhite" />
 
                 <TextView
+                    android:id="@+id/displayAgeTv"
                     android:gravity="end"
                     android:padding="4dip"
                     android:text=""
@@ -77,6 +78,7 @@
                     android:textColor="@color/textColorWhite" />
 
                 <TextView
+                    android:id="@+id/displayCountryTv"
                     android:gravity="end"
                     android:padding="4dip"
                     android:text=""
@@ -95,6 +97,7 @@
                     android:textColor="@color/textColorWhite" />
 
                 <TextView
+                    android:id="@+id/displayEmailTv"
                     android:gravity="end"
                     android:padding="4dip"
                     android:text=""

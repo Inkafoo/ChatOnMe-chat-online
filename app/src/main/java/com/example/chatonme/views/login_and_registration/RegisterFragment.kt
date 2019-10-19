@@ -16,7 +16,9 @@ import com.example.chatonme.databinding.FragmentRegisterBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.Validators
+import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_register.*
 import org.koin.android.ext.android.inject
@@ -27,6 +29,7 @@ class RegisterFragment : Fragment() {
 
     private val messaging: Messaging by inject()
     private val customDialog: CustomDialog by inject()
+    private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -101,13 +104,23 @@ class RegisterFragment : Fragment() {
      */
     private fun createUserOnFirebase(email: String, password: String){
         val customDialog = customDialog.progressDialog(this.context!!, getString(R.string.registering_user))
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+            val currentUser = firebaseAuth.currentUser
+            val reference = firebaseDatabase.getReference("Users")
+            val user = User(
+                nameEditText.text.toString(),
+                currentUser!!.uid,
+                email
+            )
+            reference.child(currentUser.uid).setValue(user)
             customDialog.cancel()
-            messaging.showToast("error", it.message.toString())
-        }.addOnSuccessListener {
-            customDialog.cancel()
+
             messaging.showToast("success", getString(R.string.registered_successfully))
             navigate()
+        }.addOnFailureListener {
+            customDialog.cancel()
+            messaging.showToast("error", it.message.toString())
         }
     }
 
