@@ -1,6 +1,7 @@
 package com.example.chatonme
 
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.chatonme.di.AppModule.appModule
@@ -22,6 +23,10 @@ class StartActivity : AppCompatActivity() {
             modules(appModule)
         }
 
-
     }
+
+
+
+
+
 }

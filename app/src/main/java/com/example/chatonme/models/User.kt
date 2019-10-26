@@ -1,12 +1,12 @@
 package com.example.chatonme.models
 
 
-data class User(
-    val name: String = "",
-    val uid: String = "",
-    val email: String = "",
-    val image: String = "",
-    val presentation: String = "",
-    val country: String = "",
-    val age: String = ""
+ open class User(
+    var name: String?=null,
+    var uid: String?=null,
+    var email: String?=null,
+    var image: String?=null,
+    var presentation: String?=null,
+    var country: String?=null,
+    var age: String?=null
 )

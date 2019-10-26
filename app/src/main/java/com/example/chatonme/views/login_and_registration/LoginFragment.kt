@@ -21,6 +21,7 @@ import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
+import kotlinx.android.synthetic.main.fragment_connect_bottom_navigation.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit

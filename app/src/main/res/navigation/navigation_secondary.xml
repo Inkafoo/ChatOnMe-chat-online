@@ -21,6 +21,21 @@
         android:id="@+id/profileFragment"
         android:name="com.example.chatonme.views.home.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_userProfileInformationFragment"
+            app:destination="@id/userProfileInformationFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/userProfileInformationFragment"
+        android:name="com.example.chatonme.views.other.UserProfileInformationFragment"
+        android:label="fragment_user_profile_information"
+        tools:layout="@layout/fragment_user_profile_information" >
+        <action
+            android:id="@+id/action_userProfileInformationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
 </navigation>
