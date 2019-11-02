@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.chatonme.models.AppViewModel
+import com.example.chatonme.models.UsersListViewModel
 import com.example.chatonme.adapters.UserListAdapter
 import com.example.chatonme.databinding.FragmentChatBinding
 import com.google.firebase.database.FirebaseDatabase
@@ -17,7 +17,7 @@ import org.koin.android.ext.android.inject
 
 class ChatFragment : Fragment() {
 
-    private val appViewModel: AppViewModel by inject()
+    private val usersListViewModel: UsersListViewModel by inject()
     private val userListAdapter: UserListAdapter by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var binding: FragmentChatBinding
@@ -30,12 +30,12 @@ class ChatFragment : Fragment() {
         binding = FragmentChatBinding.inflate(inflater)
 
 
-        appViewModel.getUsers(firebaseDatabase)
+        usersListViewModel.getUsers(firebaseDatabase)
 
         binding.recyclerUserList.adapter = userListAdapter
         binding.recyclerUserList.layoutManager = LinearLayoutManager(this.context)
 
-        appViewModel.userLists.observe(this, Observer {users ->
+        usersListViewModel.userLists.observe(this, Observer { users ->
             users?.let {
                 userListAdapter.setUsers(it)
             }

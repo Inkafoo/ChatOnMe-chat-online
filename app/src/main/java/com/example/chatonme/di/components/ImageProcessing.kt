@@ -8,14 +8,13 @@ import com.example.chatonme.R
 import com.squareup.picasso.Picasso
 import java.net.URL
 
-internal class ImageProcessing(val context: Context) {
-
+ class ImageProcessing(val context: Context) {
 
     fun setImage(url: String, target: ImageView){
         Glide.with(context)
             .load(url)
-            .error(R.drawable.ic_chat)
-            .placeholder(R.drawable.ic_chat)
+            .error(R.drawable.ic_person)
+            .placeholder(R.drawable.ic_person)
             .centerCrop()
             .into(target)
     }

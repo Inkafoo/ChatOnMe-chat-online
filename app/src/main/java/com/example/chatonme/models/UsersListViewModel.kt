@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AppViewModel : ViewModel() {
+class UsersListViewModel : ViewModel() {
     val userLists: MutableLiveData<List<Users>> = MutableLiveData()
 
     fun getUsers(firebaseDatabase: FirebaseDatabase){
