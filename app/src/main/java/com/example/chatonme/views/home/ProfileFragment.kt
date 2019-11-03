@@ -3,7 +3,9 @@ package com.example.chatonme.views.home
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +19,13 @@ import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.PICK_IMAGE_REQUEST
 import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
+import java.net.URI
 import java.util.concurrent.TimeUnit
 
 class ProfileFragment : Fragment() {
@@ -48,20 +54,19 @@ class ProfileFragment : Fragment() {
         })
 
 
-        return binding.root
 
+        return binding.root
     }
 
 
+    /**
+     * Navigate to EditUserInformation fragment
+     */
     private fun editProfileListener(view: View) {
         RxView.clicks(view).map {
             findNavController().navigate(R.id.action_profileFragment_to_userProfileInformationFragment)
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
-
-
-
-
 
     /**
      * Open gallery to pick profile photo
@@ -85,7 +90,20 @@ class ProfileFragment : Fragment() {
             resultCode == Activity.RESULT_OK &&
             data?.data != null)
         {
-            imageProcessing.setImage(data.data?.toString()!!, profileImage)
+            imageProcessing.setImage(data.data.toString(), profileImage)
+            //uploadImage(data.data!!)
+
+        }
+    }
+
+    private fun uploadImage(uri: Uri){
+        val storage = FirebaseStorage.getInstance()
+        val gsReference = storage.reference.child("photos")
+
+        gsReference.putFile(uri).addOnSuccessListener {
+            messaging.showToast("errir", it.error.toString())
+        }.addOnFailureListener {
+            messaging.showToast("errir", it.message.toString())
         }
     }
 

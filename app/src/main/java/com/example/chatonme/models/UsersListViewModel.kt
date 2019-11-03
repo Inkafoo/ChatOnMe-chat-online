@@ -12,6 +12,9 @@ import com.google.firebase.database.ValueEventListener
 class UsersListViewModel : ViewModel() {
     val userLists: MutableLiveData<List<Users>> = MutableLiveData()
 
+    /**
+     * Get registered users list
+     */
     fun getUsers(firebaseDatabase: FirebaseDatabase){
         val referenceDatabase = firebaseDatabase.getReference("Users")
         referenceDatabase.addValueEventListener(object : ValueEventListener {

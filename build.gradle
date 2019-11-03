@@ -17,19 +17,21 @@ buildscript {
     //Firebase authentication
     ext.firebase_version = '19.1.0'
     //Firebase core
-    ext.firebase_core_version = '17.2.0'
+    ext.firebase_core_version = '17.2.1'
     //Firebase database
     ext.firebase_database_version = '19.2.0'
+    //Firebase storage
+    ext.firebase_storage_version = '4.3.2'
     //Firebasea UI
     ext.firebase_ui = '6.0.2'
     //Circle image view
     ext.circle_image_version = '3.0.1'
-    //Picasso
-    ext.picasso_version = '2.71828'
     //Material dialogs
     ext.material_dialog_version = '3.1.1'
     //Koin
     ext.koin_version = '2.0.1'
+    //Glide
+    ext.glide_version = '4.10.0'
 
 
 

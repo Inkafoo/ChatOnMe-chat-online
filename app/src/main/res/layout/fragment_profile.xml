@@ -9,7 +9,7 @@
         tools:context=".views.home.ProfileFragment"
         android:background="@color/primaryLightColor">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/profileImage"
             android:layout_width="200dp"
             android:layout_height="200dp"

@@ -1,6 +1,7 @@
 package com.example.chatonme.models
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chatonme.databinding.FragmentProfileBinding
@@ -29,7 +30,11 @@ class UserProfileViewModel(val messaging: Messaging, val imageProcessing: ImageP
                         displayCountryTv.text = modelUser.country
                         displayEmailTv.text = modelUser.email
                     }
-                    imageProcessing.setImage(modelUser.image.toString(), binding.profileImage)
+                    if(modelUser.image.isNullOrEmpty()) {
+                        Log.e("UserProfileModelView", "Loading profile image error")
+                    }else{
+                        imageProcessing.setImage(modelUser.image.toString(), binding.profileImage)
+                    }
                 }
             }
 
