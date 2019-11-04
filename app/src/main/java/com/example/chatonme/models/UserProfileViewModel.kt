@@ -33,7 +33,7 @@ class UserProfileViewModel(val messaging: Messaging, val imageProcessing: ImageP
                     if(modelUser.image.isNullOrEmpty()) {
                         Log.e("UserProfileModelView", "Loading profile image error")
                     }else{
-                        imageProcessing.setImage(modelUser.image.toString(), binding.profileImage)
+                        imageProcessing.setImage(modelUser.image, binding.profileImage)
                     }
                 }
             }

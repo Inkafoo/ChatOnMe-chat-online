@@ -21,9 +21,9 @@ buildscript {
     //Firebase database
     ext.firebase_database_version = '19.2.0'
     //Firebase storage
-    ext.firebase_storage_version = '4.3.2'
-    //Firebasea UI
-    ext.firebase_ui = '6.0.2'
+    ext.firebase_storage_version = '6.0.2'
+    //Firebasea UI auth
+    ext.firebase_ui_auth = '6.0.2'
     //Circle image view
     ext.circle_image_version = '3.0.1'
     //Material dialogs

@@ -53,8 +53,8 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.firebase:firebase-core:$firebase_core_version"
 
-    //Firebase UI
-    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui"
+    //Firebase UI Auth
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_auth"
 
     //Firebase Database
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
