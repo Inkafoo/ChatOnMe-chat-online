@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,15 +21,11 @@ import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.FirebaseStorage.getInstance
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
-import java.net.URI
 import java.util.concurrent.TimeUnit
-import java.util.UUID.randomUUID
-import kotlin.system.exitProcess
 
 
 class ProfileFragment : Fragment() {
@@ -51,6 +46,8 @@ class ProfileFragment : Fragment() {
         signOutListener(binding.signOutButton)
         imageListener(binding.profileImage)
         editProfileListener(binding.editProfileButton)
+
+
 
         userProfileViewModel.setUserData(binding)
         userProfileViewModel.user.observe(this, Observer {user ->
@@ -126,35 +123,6 @@ class ProfileFragment : Fragment() {
        }.addOnFailureListener{
                messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
        }
-
-     // val storagePath = "Images_Profile/"
-     // val storageReference = getInstance().reference
-     // val itemReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUser!!.uid)
-
-     // val filePathAndName = storagePath + "" +  currentUser?.uid
-     // val storageReference2 = storageReference?.child(filePathAndName)
-     // storageReference2?.putFile(uri)?.
-     //     addOnSuccessListener {
-     //         val uriTask = it.storage.downloadUrl
-     //         while (!uriTask.isSuccessful);
-     //         val uri: Uri = uriTask.result!!
-
-     //         if(uriTask.isSuccessful){
-     //             val results = HashMap<String, Any>()
-     //             results["image"] = uri.toString()
-
-     //             itemReference.updateChildren(results)
-     //                 .addOnSuccessListener {
-     //                     messaging.showToast("succes", "sukces")
-     //                 }.addOnFailureListener {
-     //                     messaging.showToast("error", "error")
-     //                 }
-     //         }else{
-     //             messaging.showToast("error", "error")
-     //         }
-     //     }.addOnFailureListener{
-     //     messaging.showToast("error", "error")
-     // }
     }
 
     /**
@@ -163,7 +131,8 @@ class ProfileFragment : Fragment() {
     private fun signOutListener(view: View){
         RxView.clicks(view).map{
             AuthUI.getInstance().signOut(this.activity!!).addOnSuccessListener {
-                activity?.finish()
+                context!!.cacheDir.deleteRecursively()
+                activity!!.finishAffinity()
             }.addOnFailureListener {
                 messaging.showSnackBar(binding.root, getString(R.string.something_went_wrong_try_again))
             }

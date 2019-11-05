@@ -1,7 +1,6 @@
 package com.example.chatonme.models
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chatonme.databinding.FragmentProfileBinding
@@ -15,9 +14,6 @@ import com.google.firebase.database.ValueEventListener
 class UserProfileViewModel(val messaging: Messaging, val imageProcessing: ImageProcessing) : ViewModel() {
     val user: MutableLiveData<User> = MutableLiveData()
 
-    /**
-     * Get and set user information
-     */
     fun setUserData(binding: FragmentProfileBinding) {
         FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object :
             ValueEventListener {
@@ -30,14 +26,9 @@ class UserProfileViewModel(val messaging: Messaging, val imageProcessing: ImageP
                         displayCountryTv.text = modelUser.country
                         displayEmailTv.text = modelUser.email
                     }
-                    if(modelUser.image.isNullOrEmpty()) {
-                        Log.e("UserProfileModelView", "Loading profile image error")
-                    }else{
-                        imageProcessing.setImage(modelUser.image, binding.profileImage)
-                    }
+                    imageProcessing.setImage(modelUser.image.toString(), binding.profileImage)
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 messaging.showToast("error", error.message)
             }
