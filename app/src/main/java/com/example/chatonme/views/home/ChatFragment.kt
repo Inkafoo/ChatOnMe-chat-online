@@ -19,7 +19,6 @@ class ChatFragment : Fragment() {
 
     private val usersListViewModel: UsersListViewModel by inject()
     private val userListAdapter: UserListAdapter by inject()
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var binding: FragmentChatBinding
 
     override fun onCreateView(
@@ -30,7 +29,7 @@ class ChatFragment : Fragment() {
         binding = FragmentChatBinding.inflate(inflater)
 
 
-        usersListViewModel.getUsers(firebaseDatabase)
+        usersListViewModel.getRegisteredUsers()
 
         binding.recyclerUserList.adapter = userListAdapter
         binding.recyclerUserList.layoutManager = LinearLayoutManager(this.context)

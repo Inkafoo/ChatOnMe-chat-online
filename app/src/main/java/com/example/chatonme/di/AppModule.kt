@@ -17,6 +17,6 @@ object AppModule {
         single { CustomDialog() }
         single { UserListAdapter(androidContext(), ImageProcessing(androidContext())) }
         viewModel { UsersListViewModel() }
-        viewModel { UserProfileViewModel(Messaging(androidContext()), ImageProcessing(androidContext())) }
+        viewModel { UserProfileViewModel(Messaging(androidContext())) }
     }
 }

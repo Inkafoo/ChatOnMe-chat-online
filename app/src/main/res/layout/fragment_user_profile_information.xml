@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -9,7 +10,183 @@
         android:background="#3C3C3C">
 
 
+        <TextView
+            android:id="@+id/updateInformationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_profile_information"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </TextView>
+
+        <TableLayout
+            android:id="@+id/userDataTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateInformationTextView">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/presentation"
+                    android:padding="6dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+
+                <EditText
+                    android:id="@+id/presentationEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="Autofill"
+                    android:inputType="text"
+                    android:padding="4dp"
+                    android:layout_marginStart="7dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/name"
+                    android:padding="6dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="Autofill"
+                    android:inputType="text"
+                    android:padding="4dp"
+                    android:layout_marginStart="7dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/age"
+                    android:padding="6dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+
+                <EditText
+                    android:id="@+id/ageEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="Autofill"
+                    android:inputType="number"
+                    android:padding="4dp"
+                    android:layout_marginStart="7dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/country"
+                    android:padding="6dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+
+                <EditText
+                    android:id="@+id/countryEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="Autofill"
+                    android:inputType="text"
+                    android:padding="4dp"
+                    android:layout_marginStart="7dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorWhite" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/changeEmailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change_email"
+            android:textColor="@color/textColorWhite"
+            android:textAllCaps="false"
+            android:textSize="@dimen/medium_font"
+            android:drawableEnd="@drawable/ic_mail"
+            android:drawablePadding="3dp"
+            android:background="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userDataTableLayout">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:textColor="@color/textColorWhite"
+            android:textAllCaps="true"
+            android:textSize="@dimen/medium_font"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/colorAccent"
+            android:padding="10dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/changeEmailButton">
+        </Button>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

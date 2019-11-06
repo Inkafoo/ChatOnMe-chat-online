@@ -16,7 +16,6 @@ import com.example.chatonme.databinding.FragmentProfileBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.PICK_IMAGE_REQUEST
-import com.example.chatonme.models.User
 import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -49,11 +48,14 @@ class ProfileFragment : Fragment() {
 
 
 
-        userProfileViewModel.setUserData(binding)
-        userProfileViewModel.user.observe(this, Observer {user ->
-            user?.let {
-                userProfileViewModel.setUserData(binding)
+        userProfileViewModel.getUserData().observe(this, Observer { user ->
+            binding.apply {
+                presentationTextView.text = user.presentation
+                displayAgeTv.text = user.age
+                displayCountryTv.text = user.country
+                displayEmailTv.text = user.email
             }
+            imageProcessing.setImage(user.image, binding.profileImage)
         })
 
 

@@ -1,6 +1,5 @@
 package com.example.chatonme.models
 
-
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,15 +12,13 @@ class UsersListViewModel : ViewModel() {
     val userLists: MutableLiveData<List<Users>> = MutableLiveData()
 
     /**
-     * Get registered users list
+     * get registered users list
      */
-    fun getUsers(firebaseDatabase: FirebaseDatabase){
-        val referenceDatabase = firebaseDatabase.getReference("Users")
-        referenceDatabase.addValueEventListener(object : ValueEventListener {
+    fun getRegisteredUsers(){
+        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Log.e(this.toString(), error.message )
             }
-
             override fun onDataChange(p0: DataSnapshot) {
                 val user = mutableListOf<Users>()
                 for (dataSnapShot in p0.children) {
@@ -32,4 +29,5 @@ class UsersListViewModel : ViewModel() {
             }
         })
     }
+
 }

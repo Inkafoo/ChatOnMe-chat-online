@@ -49,9 +49,10 @@
     <string name="chat_with_your_friends">Chat with your friends!</string>
 
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--fragment_user_information_profile-->
+    <string name="update_profile_information">Update profile information</string>
+    <string name="change_email">Change email</string>
+    <string name="update">Update</string>
 
 
 </resources>
