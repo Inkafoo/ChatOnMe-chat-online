@@ -50,12 +50,12 @@ class ProfileFragment : Fragment() {
 
         userProfileViewModel.getUserData().observe(this, Observer { user ->
             binding.apply {
-                presentationTextView.text = user.presentation
+                displayPresentationTv.text = user.presentation
                 displayAgeTv.text = user.age
                 displayCountryTv.text = user.country
-                displayEmailTv.text = user.email
+                displayEmailTv.text = FirebaseAuth.getInstance().currentUser!!.email
             }
-            imageProcessing.setImage(user.image, binding.profileImage)
+            imageProcessing.setImage(user.image.toString(), binding.profileImage)
         })
 
 

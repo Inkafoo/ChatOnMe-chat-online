@@ -11,10 +11,12 @@ import com.example.chatonme.R
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.models.Users
+import com.google.firebase.auth.FirebaseAuth
 
 
 class UserListAdapter(val context: Context, private val imageProcessing: ImageProcessing) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     private var users = emptyList<Users>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.user_profile_list_item, parent, false))

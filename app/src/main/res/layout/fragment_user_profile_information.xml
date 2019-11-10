@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.other.UserProfileInformationFragment"
-        android:background="#3C3C3C">
+        android:background="#FFF">
 
 
         <TextView
@@ -48,7 +48,7 @@
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
 
                 <EditText
                     android:id="@+id/presentationEditText"
@@ -61,7 +61,7 @@
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
             </TableRow>
 
             <TableRow
@@ -76,7 +76,7 @@
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
 
                 <EditText
                     android:id="@+id/nameEditText"
@@ -89,7 +89,7 @@
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
             </TableRow>
 
             <TableRow
@@ -104,7 +104,7 @@
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
 
                 <EditText
                     android:id="@+id/ageEditText"
@@ -117,7 +117,7 @@
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
             </TableRow>
 
             <TableRow
@@ -132,7 +132,7 @@
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
 
                 <EditText
                     android:id="@+id/countryEditText"
@@ -145,7 +145,7 @@
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorWhite" />
+                    android:textColor="@color/textColorBlack" />
             </TableRow>
 
         </TableLayout>
@@ -155,10 +155,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/change_email"
-            android:textColor="@color/textColorWhite"
+            android:textColor="@color/textColorBlack"
             android:textAllCaps="false"
             android:textSize="@dimen/medium_font"
-            android:drawableEnd="@drawable/ic_mail"
+            android:drawableEnd="@drawable/ic_mail_black"
             android:drawablePadding="3dp"
             android:background="@null"
             style="@style/Widget.AppCompat.Button.Borderless"
@@ -169,6 +169,7 @@
         </Button>
 
         <Button
+            android:id="@+id/updateDataButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update"

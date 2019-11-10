@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatonme.models.UsersListViewModel
 import com.example.chatonme.adapters.UserListAdapter
 import com.example.chatonme.databinding.FragmentChatBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import org.koin.android.ext.android.inject
 

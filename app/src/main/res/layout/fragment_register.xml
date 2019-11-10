@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
                 android:backgroundTint="@color/primaryColor"
-                android:drawableStart="@drawable/ic_mail"
+                android:drawableStart="@drawable/ic_mail_white"
                 android:drawablePadding="8dp"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
