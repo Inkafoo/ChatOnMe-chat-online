@@ -22,4 +22,5 @@ open class User(
          "age" to age
       )
    }
+
 }

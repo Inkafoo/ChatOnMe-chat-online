@@ -1,20 +1,31 @@
 package com.example.chatonme.adapters
 
 import android.content.Context
+import android.provider.Settings.Global.getString
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.input.getInputField
+import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.list.listItems
 import com.example.chatonme.R
+import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
-import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.models.Users
-import com.google.firebase.auth.FirebaseAuth
+import es.dmoral.toasty.Toasty
 
 
-class UserListAdapter(val context: Context, private val imageProcessing: ImageProcessing) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(
+    private val context: Context,
+    private val imageProcessing: ImageProcessing,
+    private val customDialog: CustomDialog
+) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     private var users = emptyList<Users>()
 
 
@@ -35,11 +46,27 @@ class UserListAdapter(val context: Context, private val imageProcessing: ImagePr
         holder.emailTextView.text = user.email
         holder.nameTextView.text = user.name
         imageProcessing.setImage(user.image.toString(), holder.profileImageView)
-    }
 
+        holder.itemView.setOnClickListener {
+            showActionDialog(holder.itemView)
+        }
+    }
 
     internal fun setUsers(users: List<Users>) {
         this.users = users
         notifyDataSetChanged()
     }
+
+    private fun showActionDialog(view: View){
+        customDialog.materialDialog(this.context).show {
+            listItems(R.array.userListAdapterActionsArray){ dialog, index, text ->
+                when(index){
+                    0 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_friendProfileFragment)
+                    1 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_chatFragment)
+                }
+            }
+        }
+    }
+
+
 }

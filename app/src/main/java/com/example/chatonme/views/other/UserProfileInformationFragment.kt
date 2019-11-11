@@ -1,7 +1,10 @@
 package com.example.chatonme.views.other
 
 
+import android.app.AlertDialog
+import android.app.Presentation
 import android.os.Bundle
+import android.provider.Settings
 import android.text.InputType
 import android.transition.Visibility
 import androidx.fragment.app.Fragment
@@ -10,12 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.list.listItems
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentProfileBinding
 import com.example.chatonme.databinding.FragmentUserProfileInformationBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.models.User
+import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
@@ -49,24 +54,47 @@ class UserProfileInformationFragment : Fragment() {
         return binding.root
     }
 
+
+    /**
+     *get data entered by user
+     */
     private fun updateDataListener(view: View){
         RxView.clicks(view).map {
+            val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.updating_information))
             val presentation = presentationEditText.text.toString()
             val name = nameEditText.text.toString()
             val age = ageEditText.text.toString()
             val country = countryEditText.text.toString()
 
-            val user = User(
-                name = name,
-                presentation = presentation,
-                age = age,
-                country = country
-            )
+            updateUserInformation(progressBar, presentation, name, age, country)
 
-            firebaseDatabase.reference.child("Users").child(currentUser!!.uid).setValue(user.toMap())
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
+    /**
+     * update user information in firebase database
+     */
+    private fun updateUserInformation(
+            progressBar: AlertDialog,
+            presentation: String,
+            name: String,
+            age: String,
+            country: String
+    ){
+        firebaseDatabase.reference.child("Users").child(currentUser!!.uid).apply {
+            child("presentation").setValue(presentation)
+            child("name").setValue(name)
+            child("age").setValue(age)
+            child("country").setValue(country)
+                .addOnSuccessListener {
+                    progressBar.cancel()
+                    messaging.showToast("success", getString(R.string.information_updated_successfully))
+                }.addOnFailureListener{
+                    progressBar.cancel()
+                    messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
+                }
+        }
+    }
 
     /**
      * show dialog to update email
@@ -95,11 +123,13 @@ class UserProfileInformationFragment : Fragment() {
      * update email in Firebase database
      */
     private fun updateEmail(email: String){
-        currentUser!!.updateEmail(email).addOnCompleteListener {
-            messaging.showToast("success", getString(R.string.email_updated_successfully))
-            referenceUsers.child(FirebaseAuth.getInstance().currentUser!!.uid).child("email").setValue(email)
-        }.addOnFailureListener {
-            messaging.showToast("error", getString(R.string.failed_to_update_email))
-        }
+        currentUser!!.updateEmail(email)
+            .addOnCompleteListener {
+                messaging.showToast("success", getString(R.string.email_updated_successfully))
+                referenceUsers.child(FirebaseAuth.getInstance().currentUser!!.uid).child("email").setValue(email)
+            }
+            .addOnFailureListener {
+                messaging.showToast("error", getString(R.string.failed_to_update_email))
+            }
     }
 }

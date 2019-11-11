@@ -12,10 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.example.chatonme.views.home.ChatFragment"
+        android:id="@+id/usersListFragment"
+        android:name="com.example.chatonme.views.home.UsersListFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_users_list" >
+        <action
+            android:id="@+id/action_usersListFragment_to_friendProfileFragment"
+            app:destination="@id/friendProfileFragment"
+            app:enterAnim="@anim/swipe_right_in"
+            app:exitAnim="@anim/swipe_left_out"
+            app:popEnterAnim="@anim/swipe_left_in"
+            app:popExitAnim="@anim/swipe_right_out"/>
+
+        <action
+            android:id="@+id/action_usersListFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/swipe_right_in"
+            app:exitAnim="@anim/swipe_left_out"
+            app:popEnterAnim="@anim/swipe_left_in"
+            app:popExitAnim="@anim/swipe_right_out"/>
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -25,10 +41,10 @@
         <action
             android:id="@+id/action_profileFragment_to_userProfileInformationFragment"
             app:destination="@id/userProfileInformationFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left"
-            app:popEnterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
+            app:enterAnim="@anim/swipe_right_in"
+            app:exitAnim="@anim/swipe_left_out"
+            app:popEnterAnim="@anim/swipe_left_in"
+            app:popExitAnim="@anim/swipe_right_out" />
     </fragment>
 
     <fragment
@@ -40,5 +56,18 @@
             android:id="@+id/action_userProfileInformationFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/friendProfileFragment"
+        android:name="com.example.chatonme.FriendProfileFragment"
+        android:label="fragment_friend_profile"
+        tools:layout="@layout/fragment_friend_profile" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.chatonme.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 
 </navigation>

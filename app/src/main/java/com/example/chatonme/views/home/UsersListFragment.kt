@@ -10,24 +10,23 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatonme.models.UsersListViewModel
 import com.example.chatonme.adapters.UserListAdapter
-import com.example.chatonme.databinding.FragmentChatBinding
+import com.example.chatonme.databinding.FragmentUsersListBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import org.koin.android.ext.android.inject
 
-
-class ChatFragment : Fragment() {
+class UsersListFragment : Fragment() {
 
     private val usersListViewModel: UsersListViewModel by inject()
     private val userListAdapter: UserListAdapter by inject()
-    private lateinit var binding: FragmentChatBinding
+    private lateinit var binding: FragmentUsersListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentChatBinding.inflate(inflater)
+        binding = FragmentUsersListBinding.inflate(inflater)
 
 
         usersListViewModel.getRegisteredUsers()
@@ -45,6 +44,5 @@ class ChatFragment : Fragment() {
 
         return binding.root
     }
-
 
 }
