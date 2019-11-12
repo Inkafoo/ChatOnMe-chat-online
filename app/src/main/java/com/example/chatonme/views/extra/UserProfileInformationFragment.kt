@@ -1,30 +1,22 @@
-package com.example.chatonme.views.other
+package com.example.chatonme.views.extra
 
 
 import android.app.AlertDialog
-import android.app.Presentation
 import android.os.Bundle
-import android.provider.Settings
 import android.text.InputType
-import android.transition.Visibility
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
-import com.afollestad.materialdialogs.list.listItems
 import com.example.chatonme.R
-import com.example.chatonme.databinding.FragmentProfileBinding
 import com.example.chatonme.databinding.FragmentUserProfileInformationBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
-import com.example.chatonme.models.User
-import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
-import kotlinx.android.synthetic.main.fragment_connect_bottom_navigation.*
 import kotlinx.android.synthetic.main.fragment_user_profile_information.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit

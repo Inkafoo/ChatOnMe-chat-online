@@ -1,10 +1,10 @@
-package com.example.chatonme
+package com.example.chatonme.views.start
 
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.chatonme.R
 import com.example.chatonme.di.AppModule.appModule
-import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

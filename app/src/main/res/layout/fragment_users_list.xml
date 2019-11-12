@@ -9,16 +9,33 @@
         tools:context=".views.home.UsersListFragment">
 
         <TextView
-        android:id="@+id/headingTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/chat_with_your_friends"
-        android:textAlignment="center"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/headingTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/chat_with_your_friends"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/searchFriendEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/medium_font"
+            android:textColor="@color/textColorBlack"
+            android:hint="@string/search_mate"
+            android:inputType="text"
+            android:gravity="center"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headingTextView"
+            tools:ignore="Autofill" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerUserList"
@@ -27,8 +44,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headingTextView"
+            app:layout_constraintTop_toBottomOf="@+id/searchFriendEditText"
             tools:listitem="@layout/user_profile_list_item" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

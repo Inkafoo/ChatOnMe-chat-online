@@ -1,4 +1,4 @@
-package com.example.chatonme
+package com.example.chatonme.views.start
 
 
 import android.os.Bundle

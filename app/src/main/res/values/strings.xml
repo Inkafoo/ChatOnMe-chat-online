@@ -46,6 +46,7 @@
 
     <!--fragment_users_list-->
     <string name="choose_action">Choose action</string>
+    <string name="search_mate">Search mate</string>
 
 
     <!--fragment_profile-->
