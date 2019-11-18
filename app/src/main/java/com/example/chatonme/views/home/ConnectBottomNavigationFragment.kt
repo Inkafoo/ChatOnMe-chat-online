@@ -26,7 +26,11 @@ class ConnectBottomNavigationFragment : Fragment() {
         val navHostFragment = childFragmentManager.findFragmentById(R.id.bottomNavigationFragment) as NavHostFragment?
         navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
-                R.id.userProfileInformationFragment -> binding.bottomNavView.visibility = View.GONE
+                R.id.userProfileInformationFragment ,
+                R.id.chatFragment,
+                R.id.friendProfileFragment
+                     -> binding.bottomNavView.visibility = View.GONE
+
                 else -> binding.bottomNavView.visibility = View.VISIBLE
             }
         }
