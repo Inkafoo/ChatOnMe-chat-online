@@ -44,6 +44,7 @@
     <string name="select_picture">Select picture</string>
     <string name="image_added_successfully">Image added successfully</string>
 
+
     <!--fragment_users_list-->
     <string name="choose_action">Choose action</string>
     <string name="search_mate">Search mate</string>
@@ -63,6 +64,18 @@
     <string name="email_updated_successfully">Email updated successfully</string>
     <string name="updating_information">Updating information</string>
     <string name="information_updated_successfully">Information updated successfully</string>
+
+    <!--fragment_chat-->
+    <string name="type_a_message">Type a message...</string>
+
+
+
+
+
+
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
