@@ -1,6 +1,9 @@
 package com.example.chatonme.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 open class User(
     var name: String?="",
     var uid: String?= "",
@@ -9,7 +12,8 @@ open class User(
     var presentation: String?="",
     var country: String?="",
     var age: String?=""
-){
+
+): Parcelable{
 
    fun toMap(): Map<String, Any?> {
       return mapOf(

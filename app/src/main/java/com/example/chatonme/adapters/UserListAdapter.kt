@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +49,7 @@ class UserListAdapter(
         imageProcessing.setImage(user.image.toString(), holder.profileImageView)
 
         holder.itemView.setOnClickListener {
-            showActionDialog(holder.itemView)
+            showActionDialog(holder.itemView, user)
         }
     }
 
@@ -57,12 +58,13 @@ class UserListAdapter(
         notifyDataSetChanged()
     }
 
-    private fun showActionDialog(view: View){
+    private fun showActionDialog(view: View, selectedUser: Users?){
+        val pickedUser= bundleOf("selectedUser" to selectedUser)
         customDialog.materialDialog(this.context).show {
             listItems(R.array.userListAdapterActionsArray){ dialog, index, text ->
                 when(index){
                     0 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_friendProfileFragment)
-                    1 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_chatFragment)
+                    1 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_chatFragment, pickedUser)
                 }
             }
         }

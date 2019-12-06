@@ -67,6 +67,7 @@
 
     <!--fragment_chat-->
     <string name="type_a_message">Type a message...</string>
+    <string name="example_message">This is example message created by me</string>
 
 
 
