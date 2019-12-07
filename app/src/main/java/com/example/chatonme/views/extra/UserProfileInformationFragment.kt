@@ -25,12 +25,12 @@ import java.util.concurrent.TimeUnit
  * A simple [Fragment] subclass.
  */
 class UserProfileInformationFragment : Fragment() {
-    private lateinit var binding: FragmentUserProfileInformationBinding
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val referenceUsers = firebaseDatabase.getReference("Users")
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private lateinit var binding: FragmentUserProfileInformationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

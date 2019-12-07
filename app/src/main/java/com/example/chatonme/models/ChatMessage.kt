@@ -5,4 +5,6 @@ class ChatMessage(
     val text: String,
     val fromId: String,
     val toId: String
-)
+){
+    constructor() : this("", "", "", "")
+}
