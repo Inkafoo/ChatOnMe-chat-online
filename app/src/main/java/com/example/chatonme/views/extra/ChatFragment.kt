@@ -1,18 +1,15 @@
 package com.example.chatonme.views.extra
 
-
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.chatonme.R
 import com.example.chatonme.adapters.MessageFromAdapter
 import com.example.chatonme.adapters.MessageToAdapter
 import com.example.chatonme.databinding.FragmentChatBinding
+import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
-import com.example.chatonme.helpers.PICK_IMAGE_REQUEST
 import com.example.chatonme.models.ChatMessage
 import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -27,10 +24,11 @@ import java.util.concurrent.TimeUnit
 
 class ChatFragment : Fragment() {
 
+    private val messaging: Messaging by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val currentUser =  FirebaseAuth.getInstance().currentUser!!
     private val adapter = GroupAdapter<GroupieViewHolder>()
-    private val messaging: Messaging by inject()
+    private lateinit var currentUserData: User
     private lateinit var selectedUser: User
     private lateinit var fromReferenceDatabase: DatabaseReference
     private lateinit var toReferenceDatabase: DatabaseReference
@@ -40,33 +38,61 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment and set adapter for recyclerView
         binding = FragmentChatBinding.inflate(inflater)
-
         binding.chatRecyclerView.adapter = adapter
+
+        //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
-        fromReferenceDatabase = firebaseDatabase.getReference("user-messages/${currentUser.uid}/${selectedUser.uid.toString()}")
-        toReferenceDatabase = firebaseDatabase.getReference("user-messages/${selectedUser.uid.toString()}/${currentUser.uid}")
+        fromReferenceDatabase = firebaseDatabase.getReference("user-messages/${currentUser.uid}/${selectedUser.uid}")
+        toReferenceDatabase = firebaseDatabase.getReference("user-messages/${selectedUser.uid}/${currentUser.uid}")
 
 
-
-
+        getCurrentUserData()
         listenerForMessages()
 
-
+        sendMessageListener(binding.sendMessageButton)
 
         return binding.root
     }
 
+    /**
+     * Get data about current user from firebase
+     */
+    private fun getCurrentUserData(){
+        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(item in snapshot.children){
+                    currentUserData  = item.getValue(User::class.java)!!
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                messaging.showToast("error", error.message)
+            }
+        })
+
+    }
+
+
+    /**
+     * Listen for messages and show in recyclerView
+     */
     private fun listenerForMessages(){
         fromReferenceDatabase.addChildEventListener(object: ChildEventListener{
             override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
                 val chatMessage = dataSnapshot.getValue(ChatMessage::class.java)
 
                 if(chatMessage!!.fromId == currentUser.uid){
-                    adapter.add(MessageToAdapter(chatMessage.text))
+                    adapter.add(MessageToAdapter(
+                        chatMessage.text,
+                        currentUserData.image.toString(),
+                        imageProcessing = ImageProcessing(activity!!.applicationContext)))
                 }else{
-                    adapter.add(MessageFromAdapter(chatMessage.text))
+                    adapter.add(MessageFromAdapter(
+                        chatMessage.text,
+                        selectedUser.image.toString(),
+                        imageProcessing = ImageProcessing(activity!!.applicationContext)))
                 }
 
             }
@@ -81,6 +107,7 @@ class ChatFragment : Fragment() {
         })
     }
 
+
     /**
      *  Send message button listener
      */
@@ -88,7 +115,7 @@ class ChatFragment : Fragment() {
         RxView.clicks(view).map {
             val textMessage = binding.messageEditText.text.toString()
             val chatMessage = ChatMessage(
-                    fromReferenceDatabase.key!!,
+                    toReferenceDatabase.key!!,
                     textMessage, currentUser.uid,
                     selectedUser.uid.toString()
             )
@@ -98,23 +125,19 @@ class ChatFragment : Fragment() {
                     binding.messageEditText.text.clear()
                     chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
                 }.addOnFailureListener {
-                    messaging.showToast("error", "error")
+                    messaging.showToast("error", it.message.toString())
                 }
 
-            toReferenceDatabase.setValue(chatMessage)
+            toReferenceDatabase.push().setValue(chatMessage)
                 .addOnSuccessListener {
                     binding.messageEditText.text.clear()
                 }.addOnFailureListener {
-                    messaging.showToast("error", "error")
+                    messaging.showToast("error", it.message.toString())
                 }
 
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        sendMessageListener(binding.sendMessageButton)
-    }
 }
 
 

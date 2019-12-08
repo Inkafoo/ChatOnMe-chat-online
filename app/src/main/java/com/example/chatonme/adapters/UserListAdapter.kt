@@ -10,16 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.input.getInputField
-import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.listItems
 import com.example.chatonme.R
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.Users
-import es.dmoral.toasty.Toasty
 
 
 class UserListAdapter(

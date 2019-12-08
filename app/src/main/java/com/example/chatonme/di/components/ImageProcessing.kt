@@ -12,8 +12,8 @@ import com.example.chatonme.R
     fun setImage(url: String, target: ImageView){
         Glide.with(context)
             .load(url)
-            .error(R.drawable.ic_person_black)
-            .placeholder(R.drawable.ic_person_black)
+            .error(R.drawable.ic_account_circle_grey)
+            .placeholder(R.drawable.ic_account_circle_grey)
             .apply(RequestOptions.circleCropTransform())
             .into(target)
     }

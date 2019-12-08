@@ -28,7 +28,6 @@ class UsersListFragment : Fragment() {
     private val userListAdapter: UserListAdapter by inject()
     private val friendadapater: FriendsList by inject()
     private lateinit var binding: FragmentUsersListBinding
-    private val currentUser = FirebaseAuth.getInstance().currentUser
 
 
     override fun onCreateView(
