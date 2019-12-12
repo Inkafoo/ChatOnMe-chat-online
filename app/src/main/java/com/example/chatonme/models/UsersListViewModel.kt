@@ -14,18 +14,23 @@ class UsersListViewModel : ViewModel() {
     /**
      * get registered users list
      */
-    fun getRegisteredUsers(){
+    fun getRegisteredUsers(currentUserId: String){
         FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object : ValueEventListener {
+
             override fun onCancelled(error: DatabaseError) {
                 Log.e(this.toString(), error.message )
             }
+
             override fun onDataChange(p0: DataSnapshot) {
-                val user = mutableListOf<Users>()
+                val users = mutableListOf<Users>()
                 for (dataSnapShot in p0.children) {
-                    val users = dataSnapShot.getValue(Users::class.java)
-                    user.add(users!!)
+                    val user = dataSnapShot.getValue(Users::class.java)
+
+                    if(currentUserId != user!!.uid){
+                        users.add(user)
+                    }
                 }
-                userLists.postValue(user)
+                userLists.postValue(users)
             }
         })
     }

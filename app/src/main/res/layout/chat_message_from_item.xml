@@ -5,7 +5,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+
+        <TextView
+            android:id="@+id/dateTextViewMessageFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/example_date"
+            android:textColor="@color/textColorBlack"
+            android:textSize="12sp"
+            android:background="@drawable/rounded_corners"
+            android:visibility="gone"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintLeft_toLeftOf="@id/textMessageFrom"
+            app:layout_constraintRight_toRightOf="@id/textMessageFrom"
+            app:layout_constraintBottom_toTopOf="@id/textMessageFrom" />
 
         <ImageView
             android:id="@+id/userImageFrom"
@@ -18,7 +34,7 @@
             android:contentDescription="@string/icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toLeftOf="@id/textMessageFrom"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/textMessageFrom"
@@ -31,10 +47,9 @@
             android:background="@drawable/rounded_corners"
             android:backgroundTint="#B6B6B6"
             android:padding="16dp"
-            android:layout_marginTop="6dp"
             android:layout_marginStart="10dp"
             app:layout_constraintLeft_toRightOf="@id/userImageFrom"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/dateTextViewMessageFrom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

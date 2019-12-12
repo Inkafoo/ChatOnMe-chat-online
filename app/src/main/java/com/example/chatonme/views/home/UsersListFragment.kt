@@ -27,6 +27,7 @@ class UsersListFragment : Fragment() {
     private val usersListViewModel: UsersListViewModel by inject()
     private val userListAdapter: UserListAdapter by inject()
     private val friendadapater: FriendsList by inject()
+    private val currentUser= FirebaseAuth.getInstance().currentUser
     private lateinit var binding: FragmentUsersListBinding
 
 
@@ -39,7 +40,7 @@ class UsersListFragment : Fragment() {
 
         binding.recyclerUserList.adapter = userListAdapter
 
-        usersListViewModel.getRegisteredUsers()
+        usersListViewModel.getRegisteredUsers(currentUser!!.uid)
         usersListViewModel.userLists.observe(this, Observer { users ->
             users?.let {
                 userListAdapter.setUsers(it)
