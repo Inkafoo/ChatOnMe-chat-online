@@ -13,6 +13,8 @@ import com.example.chatonme.databinding.FragmentChatBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.FormatDate
+import com.example.chatonme.helpers.USERS_REFERENCE
+import com.example.chatonme.helpers.USER_MESSAGES
 import com.example.chatonme.models.ChatMessage
 import com.example.chatonme.models.User
 import com.google.android.gms.common.util.DataUtils
@@ -48,8 +50,8 @@ class ChatFragment : Fragment() {
 
         //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
-        fromReferenceDatabase = firebaseDatabase.getReference("user-messages/${currentUser.uid}/${selectedUser.uid}")
-        toReferenceDatabase = firebaseDatabase.getReference("user-messages/${selectedUser.uid}/${currentUser.uid}")
+        fromReferenceDatabase = firebaseDatabase.getReference(USER_MESSAGES + "${currentUser.uid}/${selectedUser.uid}")
+        toReferenceDatabase = firebaseDatabase.getReference(USER_MESSAGES + "${selectedUser.uid}/${currentUser.uid}")
 
 
         getCurrentUserData()
@@ -64,7 +66,7 @@ class ChatFragment : Fragment() {
      * Get data about current user from firebase
      */
     private fun getCurrentUserData(){
-        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object :
+        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(item in snapshot.children){

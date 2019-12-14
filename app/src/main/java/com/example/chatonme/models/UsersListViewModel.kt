@@ -3,6 +3,7 @@ package com.example.chatonme.models
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +16,7 @@ class UsersListViewModel : ViewModel() {
      * get registered users list
      */
     fun getRegisteredUsers(currentUserId: String){
-        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object : ValueEventListener {
+        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e(this.toString(), error.message )

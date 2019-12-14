@@ -59,7 +59,7 @@ class UserListAdapter(
         customDialog.materialDialog(this.context).show {
             listItems(R.array.userListAdapterActionsArray){ dialog, index, text ->
                 when(index){
-                    0 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_friendProfileFragment)
+                    0 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_friendProfileFragment, pickedUser)
                     1 ->  view.findNavController().navigate(R.id.action_usersListFragment_to_chatFragment, pickedUser)
                 }
             }

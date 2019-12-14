@@ -15,7 +15,9 @@ import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentProfileBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.IMAGES_PROFILE
 import com.example.chatonme.helpers.PICK_IMAGE_REQUEST
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -103,8 +105,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun uploadImage(uri: Uri) {
-       val storageReference = getInstance().reference.child("Images_Profile/ " + currentUser?.uid)
-       val databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUser!!.uid)
+       val storageReference = getInstance().reference.child(IMAGES_PROFILE  + currentUser?.uid)
+       val databaseReference = FirebaseDatabase.getInstance().reference.child(USERS_REFERENCE).child(currentUser!!.uid)
 
        storageReference.putFile(uri).addOnSuccessListener {
            val uriTask = it.storage.downloadUrl

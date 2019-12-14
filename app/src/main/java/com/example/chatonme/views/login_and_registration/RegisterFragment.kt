@@ -15,6 +15,7 @@ import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentRegisterBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -107,7 +108,7 @@ class RegisterFragment : Fragment() {
 
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
             val currentUser = firebaseAuth.currentUser
-            val reference = firebaseDatabase.getReference("Users")
+            val reference = firebaseDatabase.getReference(USERS_REFERENCE)
             val user = User(
                 nameEditText.text.toString(),
                 currentUser!!.uid,

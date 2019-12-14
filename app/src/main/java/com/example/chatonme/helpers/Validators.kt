@@ -4,6 +4,7 @@ import android.util.Patterns
 
 class Validators {
     companion object{
+        
         fun validateName(name: String): Boolean{
             return name.length > 5
         }
@@ -39,5 +40,6 @@ class Validators {
                 confirmPassword
             )
         }
+
     }
 }

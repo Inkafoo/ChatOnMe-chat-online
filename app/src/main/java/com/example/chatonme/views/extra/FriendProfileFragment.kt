@@ -7,18 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.chatonme.R
+import com.example.chatonme.databinding.FragmentChatBinding
+import com.example.chatonme.databinding.FragmentFriendProfileBinding
+import com.example.chatonme.models.User
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class FriendProfileFragment : Fragment() {
+
+    private lateinit var selectedUser: User
+    private lateinit var binding: FragmentFriendProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend_profile, container, false)
+        binding = FragmentFriendProfileBinding.inflate(inflater)
+
+        //init variable
+        selectedUser = arguments!!.getParcelable("selectedUser")!!
+
+        return binding.root
     }
 
 

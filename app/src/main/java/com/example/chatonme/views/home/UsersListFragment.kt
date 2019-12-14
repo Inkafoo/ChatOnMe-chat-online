@@ -57,31 +57,31 @@ class UsersListFragment : Fragment() {
 
 
     private fun searchFriend(){
-        var list = arrayListOf<User>()
-        searchFriendEditText.addTextChangedListener {
-            val text = searchFriendEditText.editableText.toString().toLowerCase()
-            val queryRef = FirebaseDatabase.getInstance().getReference("Users").orderByChild("name").startAt(text).endAt(text+"\uf8ff")
+       //val list = arrayListOf<User>()
+       //searchFriendEditText.addTextChangedListener {
+       //    val text = searchFriendEditText.editableText.toString().toLowerCase()
+       //    val queryRef = FirebaseDatabase.getInstance().getReference("Users").orderByChild("name").startAt(text).endAt(text+"\uf8ff")
 
-            queryRef.addValueEventListener(object : ValueEventListener{
-                override fun onCancelled(dataSnapShot: DatabaseError) {
+       //    queryRef.addValueEventListener(object : ValueEventListener{
+       //        override fun onCancelled(dataSnapShot: DatabaseError) {
 
-                }
+       //        }
 
-                override fun onDataChange(dataSnapShot: DataSnapshot) {
-                    for(dataSnapShot in dataSnapShot.children){
-                        val user = dataSnapShot.getValue(User::class.java)
-                        list.add(user!!)
-                    }
+       //        override fun onDataChange(dataSnapShot: DataSnapshot) {
+       //            for(dataSnapShot in dataSnapShot.children){
+       //                val user = dataSnapShot.getValue(User::class.java)
+       //                list.add(user!!)
+       //            }
 
-                    binding.recyclerUserList.adapter = friendadapater
-                    binding.recyclerUserList.layoutManager = LinearLayoutManager(context)
-                    friendadapater.setUsers(list)
+       //            binding.recyclerUserList.adapter = friendadapater
+       //            binding.recyclerUserList.layoutManager = LinearLayoutManager(context)
+       //            friendadapater.setUsers(list)
 
 
-                }
+       //        }
 
-            })
-        }
+       //    })
+       //}
     }
 
 

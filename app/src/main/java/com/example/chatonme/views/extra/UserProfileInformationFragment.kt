@@ -14,6 +14,7 @@ import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentUserProfileInformationBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
@@ -28,7 +29,7 @@ class UserProfileInformationFragment : Fragment() {
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val referenceUsers = firebaseDatabase.getReference("Users")
+    private val referenceUsers = firebaseDatabase.getReference(USERS_REFERENCE)
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private lateinit var binding: FragmentUserProfileInformationBinding
 
@@ -73,7 +74,7 @@ class UserProfileInformationFragment : Fragment() {
             age: String,
             country: String
     ){
-        firebaseDatabase.reference.child("Users").child(currentUser!!.uid).apply {
+        firebaseDatabase.reference.child(USERS_REFERENCE).child(currentUser!!.uid).apply {
             child("presentation").setValue(presentation)
             child("name").setValue(name)
             child("age").setValue(age)

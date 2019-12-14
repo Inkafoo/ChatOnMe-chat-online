@@ -17,9 +17,7 @@ object FormatDate {
             isYesterday(date) -> "Yesterday"
             else -> onlyDate.format(date)
         }
-
     }
-
 
     private fun isYesterday(date: Date): Boolean {
         return DateUtils.isToday(date.time + DateUtils.DAY_IN_MILLIS)

@@ -3,6 +3,7 @@ package com.example.chatonme.models
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +16,7 @@ class UserProfileViewModel(val messaging: Messaging) : ViewModel() {
      * get current user data
      */
     fun getUserData(): MutableLiveData<User> {
-        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(object :
+        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(item in snapshot.children){
