@@ -9,6 +9,22 @@
         android:layout_height="match_parent"
         tools:context=".views.home.ConnectBottomNavigationFragment">
 
+<!--
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/homeToolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:maxHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarStyle"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Swipy"
+            app:titleTextColor="@color/colorPrimary" />
+-->
          <fragment
              android:id="@+id/bottomNavigationFragment"
              android:name="androidx.navigation.fragment.NavHostFragment"

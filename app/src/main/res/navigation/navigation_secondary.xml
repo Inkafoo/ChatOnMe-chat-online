@@ -8,13 +8,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.chatonme.views.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment"
+            app:enterAnim="@anim/swipe_right_in"
+            app:exitAnim="@anim/swipe_left_out"
+            app:popEnterAnim="@anim/swipe_left_in"
+            app:popExitAnim="@anim/swipe_right_out" />
+    </fragment>
 
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.chatonme.views.home.UsersListFragment"
-        android:label="fragment_chat"
+        android:label="Chat"
         tools:layout="@layout/fragment_users_list" >
         <action
             android:id="@+id/action_usersListFragment_to_friendProfileFragment"
@@ -36,7 +44,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.chatonme.views.home.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="User Profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_userProfileInformationFragment"
@@ -46,6 +54,7 @@
             app:popEnterAnim="@anim/swipe_left_in"
             app:popExitAnim="@anim/swipe_right_out" />
     </fragment>
+
 
     <fragment
         android:id="@+id/userProfileInformationFragment"
@@ -67,8 +76,14 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.chatonme.views.extra.ChatFragment"
-        android:label="fragment_chat"
+        android:label="Chat"
         tools:layout="@layout/fragment_chat">
     </fragment>
+
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.example.chatonme.views.extra.AddPostFragment"
+        android:label="AddPostFragment"
+        tools:layout="@layout/fragment_add_post"/>
 
 </navigation>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentConnectBottomNavigationBinding
@@ -28,12 +29,25 @@ class ConnectBottomNavigationFragment : Fragment() {
             when(destination.id) {
                 R.id.userProfileInformationFragment ,
                 R.id.chatFragment,
-                R.id.friendProfileFragment
+                R.id.friendProfileFragment,
+                R.id.addPostFragment
                      -> binding.bottomNavView.visibility = View.GONE
 
                 else -> binding.bottomNavView.visibility = View.VISIBLE
             }
         }
+
+        if (navHostFragment != null) {
+            NavigationUI.setupWithNavController(
+                binding.bottomNavView,
+                navHostFragment.navController
+            )
+        }
+
+       //navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
+       //    binding.homeToolbar.title = getString(R.string.app_name) + " " + destination.label!!
+       //}
+
 
         return binding.root
     }

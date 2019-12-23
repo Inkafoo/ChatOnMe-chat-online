@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.extra.AddPostFragment">
+
+        <EditText
+            android:id="@+id/postTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/textColorBlack"
+            android:textColorHint="@color/textColorBlack"
+            android:hint="@string/enter_title"
+            android:layout_margin="8dp"
+            tools:ignore="Autofill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/postTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/textColorBlack"
+            android:layout_margin="8dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postTitleEditText">
+
+            <EditText
+                android:id="@+id/postDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_description"
+                android:inputType="textMultiLine"
+                android:maxLength="800"
+                android:maxLines="15"
+                android:textColor="@color/textColorBlack"
+                android:textColorHint="@color/textColorBlack"
+                android:textSize="@dimen/medium_font"
+                android:scrollbars="vertical"
+                tools:ignore="Autofill" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/postImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/primaryLightColor"
+            android:src="@drawable/ic_image"
+            android:contentDescription="@string/icon"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postTextInputLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
