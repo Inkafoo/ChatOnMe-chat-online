@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.list.listItems
 import com.example.chatonme.R
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
+import com.example.chatonme.models.User
 import com.example.chatonme.models.Users
 
 
@@ -54,7 +55,7 @@ class UserListAdapter(
         notifyDataSetChanged()
     }
 
-    private fun showActionDialog(view: View, selectedUser: Users?){
+    private fun showActionDialog(view: View, selectedUser: User?){
         val pickedUser= bundleOf("selectedUser" to selectedUser)
         customDialog.materialDialog(this.context).show {
             listItems(R.array.userListAdapterActionsArray){ dialog, index, text ->

@@ -2,10 +2,9 @@ package com.example.chatonme.views.extra
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentAddPostBinding
 
 
@@ -25,6 +24,7 @@ class AddPostFragment : Fragment() {
 
         return binding.root
     }
+
 
 
 }

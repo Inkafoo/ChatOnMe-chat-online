@@ -15,13 +15,17 @@ class UserProfileViewModel(val messaging: Messaging) : ViewModel() {
     /**
      * get current user data
      */
-    fun getUserData(): MutableLiveData<User> {
+    fun getUserData(currentUserId: String): MutableLiveData<User> {
         FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(item in snapshot.children){
                     val modelUser: User = item.getValue(User::class.java)!!
-                    user.value = modelUser
+
+                    if(modelUser.uid == currentUserId){
+                        user.value = modelUser
+                    }
+
                 }
             }
             override fun onCancelled(error: DatabaseError) {

@@ -66,8 +66,7 @@ class ChatFragment : Fragment() {
      * Get data about current user from firebase
      */
     private fun getCurrentUserData(){
-        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
-            ValueEventListener {
+        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(item in snapshot.children){
                     currentUserData  = item.getValue(User::class.java)!!
@@ -97,7 +96,7 @@ class ChatFragment : Fragment() {
                 }else{
                     adapter.add(MessageFromAdapter(
                         chatMessage,
-                        selectedUser.image.toString(),
+                        selectedUser.image!!,
                         imageProcessing = ImageProcessing(activity!!.applicationContext)))
                 }
 
@@ -130,13 +129,13 @@ class ChatFragment : Fragment() {
             else
             {
                 val chatMessage = ChatMessage(
-                    toReferenceDatabase.key!!,
-                    textMessage, currentUser.uid,
-                    selectedUser.uid.toString(),
-                    currentTime
-                )
+                        textMessage,
+                        currentUser.uid,
+                        selectedUser.uid.toString(),
+                        currentTime
+                    )
 
-                fromReferenceDatabase.push().setValue(chatMessage)
+                toReferenceDatabase.push().setValue(chatMessage)
                     .addOnSuccessListener {
                         binding.messageEditText.text.clear()
                         chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
@@ -144,7 +143,7 @@ class ChatFragment : Fragment() {
                         messaging.showToast("error", it.message.toString())
                     }
 
-                toReferenceDatabase.push().setValue(chatMessage)
+                fromReferenceDatabase.push().setValue(chatMessage)
                     .addOnSuccessListener {
                         binding.messageEditText.text.clear()
                     }.addOnFailureListener {

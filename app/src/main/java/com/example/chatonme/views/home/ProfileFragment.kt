@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentProfileBinding
+import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.IMAGES_PROFILE
@@ -33,6 +34,7 @@ class ProfileFragment : Fragment() {
 
     private val userProfileViewModel: UserProfileViewModel by inject()
     private val messaging: Messaging by  inject()
+    private val customDialog: CustomDialog by  inject()
     private val imageProcessing: ImageProcessing by  inject()
     private val currentUser =  FirebaseAuth.getInstance().currentUser
     private lateinit var binding: FragmentProfileBinding
@@ -50,12 +52,12 @@ class ProfileFragment : Fragment() {
 
 
 
-        userProfileViewModel.getUserData().observe(this, Observer { user ->
+        userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
                 displayAgeTv.text = user.age
                 displayCountryTv.text = user.country
-                displayEmailTv.text = FirebaseAuth.getInstance().currentUser!!.email
+                displayEmailTv.text = user.email
             }
             imageProcessing.setImage(user.image.toString(), binding.profileImage)
         })
@@ -97,7 +99,7 @@ class ProfileFragment : Fragment() {
             && resultCode == Activity.RESULT_OK
             && data?.data != null)
         {
-            imageProcessing.setImage(data.data.toString(), profileImage)
+            //imageProcessing.setImage(data.data.toString(), profileImage)
             uploadImage(data.data!!)
         }else{
             messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
@@ -105,8 +107,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun uploadImage(uri: Uri) {
+       val progressDialog = customDialog.progressDialog(this.context!!, "Updating")
        val storageReference = getInstance().reference.child(IMAGES_PROFILE  + currentUser?.uid)
        val databaseReference = FirebaseDatabase.getInstance().reference.child(USERS_REFERENCE).child(currentUser!!.uid)
+
+        progressDialog.show()
 
        storageReference.putFile(uri).addOnSuccessListener {
            val uriTask = it.storage.downloadUrl
@@ -118,14 +123,18 @@ class ProfileFragment : Fragment() {
                databaseReference.updateChildren(results)
                    .addOnSuccessListener {
                        messaging.showToast("success", getString(R.string.image_added_successfully))
+                       progressDialog.cancel()
                    }.addOnFailureListener {
                        messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
+                       progressDialog.cancel()
                    }
            }else{
                messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
+               progressDialog.cancel()
            }
        }.addOnFailureListener{
                messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
+               progressDialog.cancel()
        }
     }
 
