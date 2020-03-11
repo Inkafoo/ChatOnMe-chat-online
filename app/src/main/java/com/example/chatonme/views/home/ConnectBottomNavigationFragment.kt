@@ -44,9 +44,9 @@ class ConnectBottomNavigationFragment : Fragment() {
             )
         }
 
-       //navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
-       //    binding.homeToolbar.title = getString(R.string.app_name) + " " + destination.label!!
-       //}
+       navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
+           binding.homeToolbar.title = getString(R.string.app_name) + " " + destination.label!!
+       }
 
 
         return binding.root

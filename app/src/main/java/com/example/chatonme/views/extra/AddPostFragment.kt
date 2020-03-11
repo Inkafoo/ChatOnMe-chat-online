@@ -4,6 +4,7 @@ package com.example.chatonme.views.extra
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentAddPostBinding
 
@@ -18,6 +19,8 @@ class AddPostFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater)
+
+
 
 
 

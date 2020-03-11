@@ -9,6 +9,7 @@
         tools:context=".views.home.HomeFragment">
 
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addPostFloatingButton"
             android:layout_width="wrap_content"

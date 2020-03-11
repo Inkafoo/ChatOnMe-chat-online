@@ -12,7 +12,7 @@
             android:id="@+id/headingTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="?attr/actionBarSize"
             android:text="@string/chat_with_your_friends"
             android:textAlignment="center"
             android:textStyle="italic"

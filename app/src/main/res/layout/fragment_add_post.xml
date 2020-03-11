@@ -10,8 +10,9 @@
 
         <EditText
             android:id="@+id/postTitleEditText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="@dimen/big_font"
