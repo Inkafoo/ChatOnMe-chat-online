@@ -9,21 +9,22 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentMainBinding
+import com.example.chatonme.databinding.FragmentStartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 
 
-class MainFragment : Fragment() {
+class StartFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentStartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentMainBinding.inflate(inflater)
+        binding = FragmentStartBinding.inflate(inflater)
 
         navigate(binding.loginBtn, R.id.action_mainFragment_to_loginFragment)
         navigate(binding.registerBtn, R.id.action_mainFragment_to_registerFragment)

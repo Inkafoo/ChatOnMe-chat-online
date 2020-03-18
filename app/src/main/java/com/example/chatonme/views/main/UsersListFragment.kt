@@ -1,4 +1,4 @@
-package com.example.chatonme.views.home
+package com.example.chatonme.views.main
 
 
 import android.os.Bundle
@@ -6,20 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatonme.adapters.FriendsList
 import com.example.chatonme.models.UsersListViewModel
 import com.example.chatonme.adapters.UserListAdapter
 import com.example.chatonme.databinding.FragmentUsersListBinding
-import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_users_list.*
 import org.koin.android.ext.android.inject
 
 class UsersListFragment : Fragment() {

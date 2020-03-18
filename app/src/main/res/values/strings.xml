@@ -8,6 +8,7 @@
     <string name="chat">Chat</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
+    <string name="title">Title</string>
 
     <!--fragment_register-->
     <string name="name">Name</string>

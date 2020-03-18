@@ -1,4 +1,4 @@
-package com.example.chatonme.views.home
+package com.example.chatonme.views.main
 
 
 import android.app.Activity
@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage.getInstance
 import com.jakewharton.rxbinding2.view.RxView
-import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 

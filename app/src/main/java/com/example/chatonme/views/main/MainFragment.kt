@@ -1,4 +1,4 @@
-package com.example.chatonme.views.home
+package com.example.chatonme.views.main
 
 
 import android.os.Bundle
@@ -7,39 +7,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
-import com.example.chatonme.databinding.FragmentConnectBottomNavigationBinding
-import kotlinx.android.synthetic.main.fragment_connect_bottom_navigation.*
+import com.example.chatonme.databinding.FragmentMainBinding
+import kotlinx.android.synthetic.main.activity_basic.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
-class ConnectBottomNavigationFragment : Fragment() {
+class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentConnectBottomNavigationBinding
+    private lateinit var binding: FragmentMainBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentConnectBottomNavigationBinding.inflate(inflater)
+        binding = FragmentMainBinding.inflate(inflater)
 
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.bottomNavigationFragment) as NavHostFragment?
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentHost) as NavHostFragment?
+
         navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
                 R.id.userProfileInformationFragment ,
                 R.id.chatFragment,
                 R.id.friendProfileFragment,
                 R.id.addPostFragment
-                     -> binding.bottomNavView.visibility = View.GONE
+                     -> {
+                             binding.bottomNavigationView.visibility = View.GONE
+                             //binding.homeToolbar.visibility = View.GONE
+                     }
 
-                else -> binding.bottomNavView.visibility = View.VISIBLE
+                else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
 
         if (navHostFragment != null) {
             NavigationUI.setupWithNavController(
-                binding.bottomNavView,
+                binding.bottomNavigationView,
                 navHostFragment.navController
             )
         }
@@ -49,12 +56,8 @@ class ConnectBottomNavigationFragment : Fragment() {
        }
 
 
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setNavController()
+        return binding.root
     }
 
     /**
@@ -62,9 +65,13 @@ class ConnectBottomNavigationFragment : Fragment() {
      */
     private fun setNavController(){
         val navController = Navigation.findNavController(requireActivity(),
-            R.id.bottomNavigationFragment)
-        bottomNavView.setupWithNavController(navController)
+            R.id.fragmentHost)
+        bottomNavigationView.setupWithNavController(navController)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setNavController()
+    }
 
 }

@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_secondary"
+    android:id="@+id/bottomNavigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.chatonme.views.home.HomeFragment"
+        android:name="com.example.chatonme.views.main.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -21,8 +21,8 @@
 
     <fragment
         android:id="@+id/usersListFragment"
-        android:name="com.example.chatonme.views.home.UsersListFragment"
-        android:label="Chat"
+        android:name="com.example.chatonme.views.main.UsersListFragment"
+        android:label="Messages"
         tools:layout="@layout/fragment_users_list" >
         <action
             android:id="@+id/action_usersListFragment_to_friendProfileFragment"
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.chatonme.views.home.ProfileFragment"
+        android:name="com.example.chatonme.views.main.ProfileFragment"
         android:label="User Profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/userProfileInformationFragment"
         android:name="com.example.chatonme.views.extra.UserProfileInformationFragment"
-        android:label="fragment_user_profile_information"
+        android:label="Profile Information"
         tools:layout="@layout/fragment_user_profile_information" >
         <action
             android:id="@+id/action_userProfileInformationFragment_to_profileFragment"
@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/friendProfileFragment"
         android:name="com.example.chatonme.views.extra.FriendProfileFragment"
-        android:label="fragment_friend_profile"
+        android:label="Friend's profile"
         tools:layout="@layout/fragment_friend_profile" >
     </fragment>
 

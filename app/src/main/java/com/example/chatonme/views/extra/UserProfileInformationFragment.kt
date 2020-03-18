@@ -18,6 +18,7 @@ import com.example.chatonme.helpers.USERS_REFERENCE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
+import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_user_profile_information.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
@@ -42,6 +43,7 @@ class UserProfileInformationFragment : Fragment() {
 
         changeEmailListener(binding.changeEmailButton)
         updateDataListener(binding.updateDataButton)
+
 
 
         return binding.root
