@@ -6,13 +6,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.home.UsersListFragment">
+        tools:context=".views.main.UsersListFragment">
 
         <TextView
             android:id="@+id/headingTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
             android:text="@string/chat_with_your_friends"
             android:textAlignment="center"
             android:textStyle="italic"
