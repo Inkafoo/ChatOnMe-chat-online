@@ -15,6 +15,7 @@ import com.example.chatonme.databinding.FragmentUserProfileInformationBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.USERS_REFERENCE
+import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
@@ -23,9 +24,6 @@ import kotlinx.android.synthetic.main.fragment_user_profile_information.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-/**
- * A simple [Fragment] subclass.
- */
 class UserProfileInformationFragment : Fragment() {
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
@@ -51,31 +49,70 @@ class UserProfileInformationFragment : Fragment() {
 
 
     /**
-     *get data entered by user
+     * Gets data entered by user
      */
     private fun updateDataListener(view: View){
         RxView.clicks(view).map {
-            val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.updating_information))
             val presentation = presentationEditText.text.toString()
             val name = nameEditText.text.toString()
             val age = ageEditText.text.toString()
             val country = countryEditText.text.toString()
 
-            updateUserInformation(progressBar, presentation, name, age, country)
+            if (validateUserData(presentation, name, age, country) && Validators.validProfileData(
+                    presentation,
+                    name,
+                    age,
+                    country
+                )) {
+               updateUserInformation(presentation, name, age, country)
+            }
+
 
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
     /**
-     * update user information in firebase database
+     * Checks is user's profile data are correct
+     */
+    private fun  validateUserData(
+        presentation: String,
+        name: String,
+        age: String,
+        country:  String
+    ): Boolean{
+        var flag = true
+
+        if(!Validators.validatePresentationLength(presentation)){
+            binding.presentationEditText.error = getString(R.string.short_name_error)
+            flag = false
+        }
+        if(!Validators.validateName(name)){
+            binding.nameEditText.error = getString(R.string.short_name_error)
+            flag = false
+        }
+        if(!Validators.validateAge(age)){
+            binding.ageEditText.error = getString(R.string.age_error)
+            flag = false
+        }
+        if(!Validators.validateCountryLength(country)){
+            binding.countryEditText.error = getString(R.string.country_error)
+            flag = false
+        }
+
+        return  flag
+    }
+
+    /**
+     * Updates user information in firebase database
      */
     private fun updateUserInformation(
-            progressBar: AlertDialog,
             presentation: String,
             name: String,
             age: String,
             country: String
     ){
+        val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.updating_information))
+
         firebaseDatabase.reference.child(USERS_REFERENCE).child(currentUser!!.uid).apply {
             child("presentation").setValue(presentation)
             child("name").setValue(name)
@@ -92,7 +129,7 @@ class UserProfileInformationFragment : Fragment() {
     }
 
     /**
-     * show dialog to update email
+     * Shows dialog to update email
      */
     private fun changeEmailListener(view: View){
         RxView.clicks(view).map {
@@ -115,7 +152,7 @@ class UserProfileInformationFragment : Fragment() {
     }
 
     /**
-     * update email in Firebase database
+     * Updates email in Firebase database
      */
     private fun updateEmail(email: String){
         currentUser!!.updateEmail(email)

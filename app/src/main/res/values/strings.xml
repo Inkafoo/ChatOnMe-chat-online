@@ -65,6 +65,10 @@
     <string name="email_updated_successfully">Email updated successfully</string>
     <string name="updating_information">Updating information</string>
     <string name="information_updated_successfully">Information updated successfully</string>
+    <string name="presentation_length_error">Presentation too short</string>
+    <string name="age_error">Not old enough</string>
+    <string name="country_error">Country name too short</string>
+
 
     <!--fragment_chat-->
     <string name="type_a_message">Type a message...</string>

@@ -14,7 +14,7 @@ class Validators {
         }
 
         fun validatePasswordLength(password: String): Boolean{
-            return password.length > 5
+            return password.length >= 5
         }
 
         fun validatePasswordConfirmation(password: String, confirmPassword: String): Boolean {
@@ -25,20 +25,41 @@ class Validators {
             )
         }
 
+        fun validatePresentationLength(presentation: String): Boolean{
+            return presentation.length > 15
+        }
+
+        fun validateCountryLength(country: String): Boolean{
+            return country.length > 3
+        }
+
+        fun validateAge(age: String): Boolean{
+            return age.isNotEmpty() && age.toInt() >= 16
+        }
+
         fun isValidUser(
             name: String,
             email: String,
             password: String,
             confirmPassword: String
         ): Boolean {
-            return validateName(name) && validateEmail(
-                email
-            ) && validatePasswordLength(password) && validatePasswordLength(
-                confirmPassword
-            ) && validatePasswordConfirmation(
-                password,
-                confirmPassword
-            )
+            return validateName(name) &&
+                    validateEmail(email) &&
+                    validatePasswordLength(password) &&
+                    validatePasswordLength(confirmPassword) &&
+                    validatePasswordConfirmation(password, confirmPassword)
+        }
+
+        fun validProfileData(
+            presentation: String,
+            name: String,
+            age: String,
+            country: String
+        ): Boolean {
+            return validatePresentationLength(presentation) &&
+                    validateName(name) &&
+                    validateAge(age) &&
+                    validateCountryLength(country)
         }
 
     }

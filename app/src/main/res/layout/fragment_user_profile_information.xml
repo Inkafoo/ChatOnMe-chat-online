@@ -55,12 +55,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    tools:ignore="Autofill"
                     android:inputType="text"
                     android:padding="4dp"
+                    android:maxLength="100"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorBlack" />
+                    android:textColor="@color/textColorBlack"
+                    tools:ignore="Autofill,LabelFor"/>
             </TableRow>
 
             <TableRow
@@ -83,12 +84,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    tools:ignore="Autofill"
                     android:inputType="text"
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorBlack" />
+                    android:textColor="@color/textColorBlack"
+                    tools:ignore="Autofill,LabelFor"/>
             </TableRow>
 
             <TableRow
@@ -111,12 +112,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    tools:ignore="Autofill"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorBlack" />
+                    android:textColor="@color/textColorBlack"
+                    tools:ignore="Autofill,LabelFor"/>
             </TableRow>
 
             <TableRow
@@ -139,12 +141,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    tools:ignore="Autofill"
                     android:inputType="text"
                     android:padding="4dp"
                     android:layout_marginStart="7dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/textColorBlack" />
+                    android:textColor="@color/textColorBlack"
+                    tools:ignore="Autofill,LabelFor"/>
             </TableRow>
 
         </TableLayout>

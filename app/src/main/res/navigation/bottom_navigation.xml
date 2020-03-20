@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.chatonme.views.main.UsersListFragment"
-        android:label="Messages"
+        android:label="Chat"
         tools:layout="@layout/fragment_users_list" >
         <action
             android:id="@+id/action_usersListFragment_to_friendProfileFragment"

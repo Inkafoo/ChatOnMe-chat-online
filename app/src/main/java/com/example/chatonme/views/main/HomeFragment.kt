@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
 
 
     /**
-     * Navigate to AddPostFragment
+     * Navigates to AddPostFragment
      */
     private fun navigateToAddPostListener(view: View){
         RxView.clicks(view).map {

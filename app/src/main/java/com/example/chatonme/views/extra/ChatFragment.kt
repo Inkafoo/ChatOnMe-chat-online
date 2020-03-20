@@ -63,7 +63,7 @@ class ChatFragment : Fragment() {
     }
 
     /**
-     * Get data about current user from firebase
+     * Gets data about current user from firebase
      */
     private fun getCurrentUserData(){
         FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
@@ -81,7 +81,7 @@ class ChatFragment : Fragment() {
 
 
     /**
-     * Listen for messages and show in recyclerView
+     * Listens for messages and show in recyclerView
      */
     private fun listenerForMessages(){
         fromReferenceDatabase.addChildEventListener(object: ChildEventListener{
@@ -116,7 +116,7 @@ class ChatFragment : Fragment() {
 
 
     /**
-     *  Send message button listener
+     *  Sends message button listener
      */
     private fun sendMessageListener(view: View){
         RxView.clicks(view).map {

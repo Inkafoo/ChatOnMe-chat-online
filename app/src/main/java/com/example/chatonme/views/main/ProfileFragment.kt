@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
 
 
     /**
-     * Navigate to EditUserInformation fragment
+     * Navigates to EditUserInformation fragment
      */
     private fun editProfileListener(view: View) {
         RxView.clicks(view).map {
@@ -77,7 +77,7 @@ class ProfileFragment : Fragment() {
     }
 
     /**
-     * Open gallery to pick profile photo
+     * Opens gallery to pick profile photo
      */
     private fun imageListener(view: View){
         RxView.clicks(view).map {
@@ -90,7 +90,7 @@ class ProfileFragment : Fragment() {
     }
 
     /**
-     * Return and set picked image
+     * Returns and set picked image
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -105,6 +105,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Uploads picked profile image to firebase
+     */
     private fun uploadImage(uri: Uri) {
        val progressDialog = customDialog.progressDialog(this.context!!, "Updating")
        val storageReference = getInstance().reference.child(IMAGES_PROFILE  + currentUser?.uid)

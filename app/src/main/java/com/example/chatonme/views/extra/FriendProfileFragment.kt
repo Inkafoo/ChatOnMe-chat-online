@@ -6,12 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.lifecycle.Observer
+import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentFriendProfileBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.User
 import com.example.chatonme.models.UserProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_main.view.homeToolbar
 import org.koin.android.ext.android.inject
 
 
@@ -32,6 +37,18 @@ class FriendProfileFragment : Fragment() {
         //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
 
+        setFriendProfileData()
+
+
+
+
+        return binding.root
+    }
+
+    /**
+     * Shows friend's profile data in view
+     */
+    private fun setFriendProfileData(){
         userProfileViewModel.getUserData(selectedUser.uid!!).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
@@ -41,9 +58,6 @@ class FriendProfileFragment : Fragment() {
             }
             imageProcessing.setImage(user.image.toString(), binding.profileImage)
         })
-
-        return binding.root
     }
-
 
 }

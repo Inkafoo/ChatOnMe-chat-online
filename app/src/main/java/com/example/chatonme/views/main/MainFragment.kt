@@ -33,14 +33,18 @@ class MainFragment : Fragment() {
             when(destination.id) {
                 R.id.userProfileInformationFragment ,
                 R.id.chatFragment,
-                R.id.friendProfileFragment,
+                //R.id.friendProfileFragment,
                 R.id.addPostFragment
-                     -> {
-                             binding.bottomNavigationView.visibility = View.GONE
-                             //binding.homeToolbar.visibility = View.GONE
-                     }
+                    -> {
+                            binding.bottomNavigationView.visibility = View.GONE
+                            binding.homeToolbar.visibility = View.GONE
+                    }
 
-                else -> binding.bottomNavigationView.visibility = View.VISIBLE
+                else
+                    -> {
+                        binding.bottomNavigationView.visibility = View.VISIBLE
+                        binding.homeToolbar.visibility = View.VISIBLE
+                    }
             }
         }
 
@@ -61,7 +65,7 @@ class MainFragment : Fragment() {
     }
 
     /**
-     * Set bottomNavView as NavController
+     * Sets bottomNavView as NavController
      */
     private fun setNavController(){
         val navController = Navigation.findNavController(requireActivity(),
