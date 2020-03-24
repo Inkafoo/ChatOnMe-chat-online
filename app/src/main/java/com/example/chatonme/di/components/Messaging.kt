@@ -17,6 +17,7 @@ class Messaging(val context: Context) {
 
     /**
      * Shows a toast message
+     *
      * @param type -> type of toast (accepted types: normal, error, success, warning)
      */
     fun showToast(type: String, message: String){
