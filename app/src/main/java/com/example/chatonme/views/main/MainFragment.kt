@@ -1,20 +1,20 @@
 package com.example.chatonme.views.main
 
 
+import android.app.ActionBar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentMainBinding
-import kotlinx.android.synthetic.main.activity_basic.*
 import kotlinx.android.synthetic.main.fragment_main.*
+
 
 class MainFragment : Fragment() {
 
@@ -32,16 +32,24 @@ class MainFragment : Fragment() {
         navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
                 R.id.userProfileInformationFragment ,
-                R.id.chatFragment,
                 R.id.friendProfileFragment,
                 R.id.addPostFragment
-                     -> {
+                    -> {
+                         binding.bottomNavigationView.visibility = View.GONE
+                         //binding.homeToolbar.visibility = View.GONE
+                         //binding.homeToolbar.inflateMenu(R.menu.bottom_navigation_menu)
+                     }
+                R.id.chatFragment
+                    -> {
                          binding.bottomNavigationView.visibility = View.GONE
                          binding.homeToolbar.visibility = View.GONE
-                     }
-                else -> {
+                         binding.homeToolbar.menu.clear()
+                }
+                else
+                    -> {
                          binding.bottomNavigationView.visibility = View.VISIBLE
                          binding.homeToolbar.visibility = View.VISIBLE
+
                     }
             }
         }
@@ -54,11 +62,10 @@ class MainFragment : Fragment() {
         }
 
        navHostFragment?.navController?.addOnDestinationChangedListener { _, destination, _ ->
-           binding.homeToolbar.title = getString(R.string.app_name) + " " + destination.label!!
+          if(destination.id != R.id.chatFragment){
+              binding.homeToolbar.title = getString(R.string.app_name) + " " + destination.label!!
+          }
        }
-
-
-
         return binding.root
     }
 

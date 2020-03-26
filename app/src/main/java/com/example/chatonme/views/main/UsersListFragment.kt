@@ -39,9 +39,9 @@ class UsersListFragment : Fragment() {
             }
         })
 
-        binding.searchFriendEditText.setOnClickListener {
-            searchFriend()
-        }
+        //binding.searchFriendEditText.setOnClickListener {
+        //    searchFriend()
+        //}
 
 
         return binding.root

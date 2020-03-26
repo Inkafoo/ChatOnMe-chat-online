@@ -1,29 +1,29 @@
 package com.example.chatonme.views.extra
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.format.DateUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.chatonme.R
 import com.example.chatonme.adapters.MessageFromAdapter
 import com.example.chatonme.adapters.MessageToAdapter
 import com.example.chatonme.databinding.FragmentChatBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
-import com.example.chatonme.helpers.FormatDate
 import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.USER_MESSAGES
 import com.example.chatonme.models.ChatMessage
 import com.example.chatonme.models.User
-import com.google.android.gms.common.util.DataUtils
+import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.jakewharton.rxbinding2.view.RxView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit
 class ChatFragment : Fragment() {
 
     private val messaging: Messaging by inject()
+    private val imageProcessing: ImageProcessing by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val currentUser =  FirebaseAuth.getInstance().currentUser!!
     private val adapter = GroupAdapter<GroupieViewHolder>()
@@ -44,9 +45,10 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment and set adapter for recyclerView
+        // Inflate the layout for this fragment and set adapter of recyclerView
         binding = FragmentChatBinding.inflate(inflater)
         binding.chatRecyclerView.adapter = adapter
+
 
         //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
@@ -54,12 +56,27 @@ class ChatFragment : Fragment() {
         toReferenceDatabase = firebaseDatabase.getReference(USER_MESSAGES + "${selectedUser.uid}/${currentUser.uid}")
 
 
+        setUpToolbarData()
         getCurrentUserData()
         listenerForMessages()
-
         sendMessageListener(binding.sendMessageButton)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+            (activity as BasicActivity).homeToolbar.removeView(view)
+    }
+
+    /**
+     * Sets chat partner's name, age and image
+     */
+    private fun setUpToolbarData(){
+        binding.pickedUserNameTextView.text = "${selectedUser.name}"
+        binding.pickedUserAgeTextView.text = "${selectedUser.age}"
+
+        imageProcessing.setImage(selectedUser.image.toString(), binding.itemImageView)
     }
 
     /**

@@ -24,7 +24,6 @@ class AddPostFragment : Fragment() {
 
 
 
-
         return binding.root
     }
 
