@@ -8,6 +8,14 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
+
+        <item name="android:actionMenuTextColor">@color/textColorBlack</item>
+        <item name="android:actionMenuTextAppearance">@style/UserProfileToolbarMenu</item>
+
+    </style>
+
+    <style name="UserProfileToolbarMenu" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

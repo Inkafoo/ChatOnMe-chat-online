@@ -56,7 +56,8 @@
 
 
     <!--fragment_user_information_profile-->
-    <string name="update_profile_information">Update profile information</string>
+    <string name="update_account_details">Update account details</string>
+    <string name="profile_information">Profile information</string>
     <string name="change_email">Change email</string>
     <string name="update">Update</string>
     <string name="new_email">New email</string>
@@ -71,7 +72,7 @@
 
 
     <!--fragment_chat-->
-    <string name="type_a_message">Type a message...</string>
+    <string name="type_a_message">Type a message…</string>
     <string name="example_message">This is example message created by me</string>
     <string name="message_cannot_be_empty">Message cannot be empty</string>
     <string name="example_date">21 Dec</string>
@@ -79,6 +80,9 @@
     <!--fragment_add_post-->
     <string name="enter_title">Enter Title</string>
     <string name="enter_description">Enter Description</string>
+
+
+
 
 
 </resources>
