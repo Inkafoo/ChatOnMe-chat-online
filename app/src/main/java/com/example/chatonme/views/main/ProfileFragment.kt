@@ -49,8 +49,17 @@ class ProfileFragment : Fragment() {
         imageListener(binding.profileImage)
         editProfileListener(binding.editProfileButton)
 
+        setUserData()
 
 
+        return binding.root
+    }
+
+
+    /**
+     * Gets user's data and set to fragment layout
+     */
+    private fun setUserData() {
         userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
@@ -60,12 +69,7 @@ class ProfileFragment : Fragment() {
             }
             imageProcessing.setImage(user.image.toString(), binding.profileImage)
         })
-
-
-
-        return binding.root
     }
-
 
     /**
      * Navigates to EditUserInformation fragment
@@ -79,7 +83,7 @@ class ProfileFragment : Fragment() {
     /**
      * Opens gallery to pick profile photo
      */
-    private fun imageListener(view: View){
+    private fun imageListener(view: View) {
         RxView.clicks(view).map {
            Intent().apply {
                type = "image/*"

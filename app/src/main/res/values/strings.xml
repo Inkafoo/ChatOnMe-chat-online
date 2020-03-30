@@ -80,6 +80,8 @@
     <!--fragment_add_post-->
     <string name="enter_title">Enter Title</string>
     <string name="enter_description">Enter Description</string>
+    <string name="post">Post</string>
+    <string name="create_post">Create post</string>
 
 
 

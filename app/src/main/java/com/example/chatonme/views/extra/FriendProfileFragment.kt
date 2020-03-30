@@ -13,6 +13,7 @@ import com.example.chatonme.databinding.FragmentFriendProfileBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.User
 import com.example.chatonme.models.UserProfileViewModel
+import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -58,6 +59,8 @@ class FriendProfileFragment : Fragment() {
             }
             imageProcessing.setImage(user.image.toString(), binding.profileImage)
         })
+
+        (activity as BasicActivity).homeToolbar.title = selectedUser.name + "'s" + " profile"
     }
 
 }

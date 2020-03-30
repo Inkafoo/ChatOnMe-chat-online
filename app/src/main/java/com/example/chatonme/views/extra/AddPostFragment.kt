@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentAddPostBinding
+import com.example.chatonme.views.start.BasicActivity
+import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class AddPostFragment : Fragment() {
@@ -22,10 +25,11 @@ class AddPostFragment : Fragment() {
 
 
 
-
-
         return binding.root
     }
+
+
+
 
 
 

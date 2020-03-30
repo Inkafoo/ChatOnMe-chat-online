@@ -1,11 +1,10 @@
 package com.example.chatonme.views.extra
 
-
-import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.example.chatonme.R
@@ -14,18 +13,21 @@ import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.Validators
+import com.example.chatonme.models.UserProfileViewModel
 import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.jakewharton.rxbinding2.view.RxView
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlinx.android.synthetic.main.fragment_main.view.homeToolbar
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile_information.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 class UserProfileInformationFragment : Fragment() {
+
+    private val userProfileViewModel: UserProfileViewModel by inject()
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
@@ -45,15 +47,31 @@ class UserProfileInformationFragment : Fragment() {
         }
 
         changeEmailListener(binding.changeEmailButton)
+        displayUserData()
+
 
 
         return binding.root
     }
 
     /**
+     * Gets user's data and displays in editTexts
+     */
+    private fun displayUserData() {
+        userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
+            binding.apply {
+                presentationEditText.setText(user.presentation)
+                nameEditText.setText(user.name)
+                ageEditText.setText(user.age)
+                countryEditText.setText(user.country)
+            }
+        })
+    }
+
+    /**
      * Gets data entered by user
      */
-    private fun updateDataListener(){
+    private fun updateDataListener() {
             val presentation = presentationEditText.text.toString()
             val name = nameEditText.text.toString()
             val age = ageEditText.text.toString()
@@ -162,7 +180,6 @@ class UserProfileInformationFragment : Fragment() {
                 messaging.showToast("error", getString(R.string.failed_to_update_email))
             }
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
