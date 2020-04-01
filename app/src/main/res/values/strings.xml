@@ -81,7 +81,16 @@
     <string name="enter_title">Enter Title</string>
     <string name="enter_description">Enter Description</string>
     <string name="post">Post</string>
-    <string name="create_post">Create post</string>
+    <string name="title_post_error">Title too short</string>
+    <string name="description_post_error">Description too short</string>
+
+
+
+    <!--post_item-->
+    <string name="author_name">Author name</string>
+    <string name="post_date">00 Jun 2020 5:21 PM</string>
+    <string name="post_title">Post title</string>
+    <string name="post_description">Post description</string>
 
 
 

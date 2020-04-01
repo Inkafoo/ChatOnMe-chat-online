@@ -99,7 +99,7 @@ class UserProfileInformationFragment : Fragment() {
         var flag = true
 
         if(!Validators.validatePresentationLength(presentation)){
-            binding.presentationEditText.error = getString(R.string.short_name_error)
+            binding.presentationEditText.error = getString(R.string.presentation_length_error)
             flag = false
         }
         if(!Validators.validateName(name)){

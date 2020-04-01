@@ -4,7 +4,7 @@ import android.util.Patterns
 
 class Validators {
     companion object{
-        
+
         fun validateName(name: String): Boolean{
             return name.length > 5
         }
@@ -61,6 +61,15 @@ class Validators {
                     validateAge(age) &&
                     validateCountryLength(country)
         }
+
+        fun validatePostTitleLength(title: String): Boolean {
+            return title.length > 4
+        }
+
+        fun validatePostDescriptionLength(description: String): Boolean {
+            return description.length > 4
+        }
+
 
     }
 }
