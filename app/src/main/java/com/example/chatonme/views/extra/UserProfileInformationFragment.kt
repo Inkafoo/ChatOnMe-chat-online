@@ -66,7 +66,7 @@ class UserProfileInformationFragment : Fragment() {
      * Gets user's data and displays in editTexts
      */
     private fun displayUserData() {
-        userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
+        userProfileViewModel.getUser(currentUser!!.uid).observe(this, Observer { user ->
             binding.apply {
                 presentationEditText.setText(user.presentation)
                 nameEditText.setText(user.name)

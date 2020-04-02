@@ -15,7 +15,7 @@ class UserProfileViewModel(val messaging: Messaging) : ViewModel() {
     /**
      * get current user data
      */
-    fun getUserData(currentUserId: String): MutableLiveData<User> {
+    fun getUser(currentUserId: String): MutableLiveData<User> {
         FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

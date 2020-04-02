@@ -60,7 +60,7 @@ class ProfileFragment : Fragment() {
      * Gets user's data and set to fragment layout
      */
     private fun setUserData() {
-        userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
+        userProfileViewModel.getUser(currentUser!!.uid).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
                 displayAgeTv.text = user.age
