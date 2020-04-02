@@ -27,12 +27,12 @@ import java.util.concurrent.TimeUnit
 
 class UserProfileInformationFragment : Fragment() {
 
-    private val userProfileViewModel: UserProfileViewModel by inject()
-    private val customDialog: CustomDialog by inject()
-    private val messaging: Messaging by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val referenceUsers = firebaseDatabase.getReference(USERS_REFERENCE)
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val userProfileViewModel: UserProfileViewModel by inject()
+    private val customDialog: CustomDialog by inject()
+    private val messaging: Messaging by inject()
     private lateinit var binding: FragmentUserProfileInformationBinding
 
     override fun onCreateView(
@@ -42,16 +42,24 @@ class UserProfileInformationFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentUserProfileInformationBinding.inflate(inflater)
 
-        (activity as BasicActivity).homeToolbar.setOnMenuItemClickListener {
-            onOptionsItemSelected(it)
-        }
-
-        changeEmailListener(binding.changeEmailButton)
+        setToolbarMenu()
         displayUserData()
+        changeEmailListener(binding.changeEmailButton)
 
 
 
         return binding.root
+    }
+
+    /**
+     * Inflates menu and set to toolbar
+     */
+    private fun setToolbarMenu() {
+        (activity as BasicActivity)
+            .homeToolbar
+            .setOnMenuItemClickListener {
+                onOptionsItemSelected(it)
+        }
     }
 
     /**
@@ -181,7 +189,9 @@ class UserProfileInformationFragment : Fragment() {
             }
     }
 
-
+    /**
+     * Handle menu actions
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.updateDataMenu -> {

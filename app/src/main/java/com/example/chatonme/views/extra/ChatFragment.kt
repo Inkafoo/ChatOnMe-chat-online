@@ -1,6 +1,5 @@
 package com.example.chatonme.views.extra
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,14 +26,13 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-
 class ChatFragment : Fragment() {
 
-    private val messaging: Messaging by inject()
-    private val imageProcessing: ImageProcessing by inject()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val currentUser =  FirebaseAuth.getInstance().currentUser!!
     private val adapter = GroupAdapter<GroupieViewHolder>()
+    private val messaging: Messaging by inject()
+    private val imageProcessing: ImageProcessing by inject()
     private lateinit var currentUserData: User
     private lateinit var selectedUser: User
     private lateinit var fromReferenceDatabase: DatabaseReference
@@ -48,7 +46,6 @@ class ChatFragment : Fragment() {
         // Inflate the layout for this fragment and set adapter of recyclerView
         binding = FragmentChatBinding.inflate(inflater)
         binding.chatRecyclerView.adapter = adapter
-
 
         //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
@@ -64,10 +61,7 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-            (activity as BasicActivity).homeToolbar.removeView(view)
-    }
+
 
     /**
      * Sets chat partner's name, age and image
@@ -95,7 +89,6 @@ class ChatFragment : Fragment() {
         })
 
     }
-
 
     /**
      * Listens for messages and show in recyclerView
@@ -130,7 +123,6 @@ class ChatFragment : Fragment() {
             override fun onChildRemoved(p0: DataSnapshot) {}
         })
     }
-
 
     /**
      *  Sends message button listener
@@ -171,6 +163,13 @@ class ChatFragment : Fragment() {
         }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
     }
 
+    /**
+     * Removes view  of fragment toolbar
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as BasicActivity).homeToolbar.removeView(view)
+    }
 }
 
 
