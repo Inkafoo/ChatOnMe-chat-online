@@ -62,12 +62,12 @@ class MainFragment : Fragment() {
                         -> {
                             binding.homeToolbar.title = getString(R.string.create_post)
                             binding.homeToolbar.inflateMenu(R.menu.add_post_toolbar_menu)
+                            binding.bottomNavigationView.visibility = View.GONE
                         }
                     else
                         -> {
                             binding.bottomNavigationView.visibility = View.VISIBLE
                             binding.homeToolbar.visibility = View.VISIBLE
-
                         }
             }
         }

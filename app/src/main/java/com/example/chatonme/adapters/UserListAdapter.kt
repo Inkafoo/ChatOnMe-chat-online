@@ -1,8 +1,6 @@
 package com.example.chatonme.adapters
 
 import android.content.Context
-import android.provider.Settings.Global.getString
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,6 @@ import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.User
 import com.example.chatonme.models.Users
 
-
 class UserListAdapter(
     private val context: Context,
     private val imageProcessing: ImageProcessing,
@@ -26,6 +23,11 @@ class UserListAdapter(
 ) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     private var users = emptyList<Users>()
 
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nameTextView = itemView.findViewById<TextView>(R.id.userNameTextView)!!
+        val emailTextView = itemView.findViewById<TextView>(R.id.userEmailTextView)!!
+        val profileImageView = itemView.findViewById<ImageView>(R.id.profilePhotoImageView)!!
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.user_profile_list_item, parent, false))
@@ -33,16 +35,14 @@ class UserListAdapter(
 
     override fun getItemCount(): Int = users.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView = itemView.findViewById<TextView>(R.id.userNameTextView)!!
-        val emailTextView = itemView.findViewById<TextView>(R.id.userEmailTextView)!!
-        val profileImageView = itemView.findViewById<ImageView>(R.id.profilePhotoImageView)!!
-    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         val user = users[position]
-        holder.emailTextView.text = user.email
-        holder.nameTextView.text = user.name
+
+        holder.apply {
+            emailTextView.text = user.email
+            nameTextView.text = user.name
+        }
         imageProcessing.setImage(user.image.toString(), holder.profileImageView)
 
         holder.itemView.setOnClickListener {

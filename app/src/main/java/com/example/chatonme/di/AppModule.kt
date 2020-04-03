@@ -1,10 +1,7 @@
 package com.example.chatonme.di
 
-import com.example.chatonme.adapters.FriendsList
-import com.example.chatonme.adapters.MessageFromAdapter
-import com.example.chatonme.adapters.MessageToAdapter
+import com.example.chatonme.adapters.*
 import com.example.chatonme.models.UsersListViewModel
-import com.example.chatonme.adapters.UserListAdapter
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
@@ -21,6 +18,7 @@ object AppModule {
         single { CustomDialog() }
         single { FriendsList(androidContext()) }
         single { UserListAdapter(androidContext(), ImageProcessing(androidContext()), CustomDialog()) }
+        single { PostListAdapter(androidContext(), ImageProcessing(androidContext())) }
         viewModel { UsersListViewModel() }
         viewModel { UserProfileViewModel(Messaging(androidContext())) }
     }

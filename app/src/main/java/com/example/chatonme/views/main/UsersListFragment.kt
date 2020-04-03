@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.example.chatonme.adapters.FriendsList
 import com.example.chatonme.models.UsersListViewModel
 import com.example.chatonme.adapters.UserListAdapter
 import com.example.chatonme.databinding.FragmentUsersListBinding
@@ -18,7 +17,6 @@ class UsersListFragment : Fragment() {
 
     private val usersListViewModel: UsersListViewModel by inject()
     private val userListAdapter: UserListAdapter by inject()
-    private val friendadapater: FriendsList by inject()
     private val currentUser= FirebaseAuth.getInstance().currentUser
     private lateinit var binding: FragmentUsersListBinding
 
