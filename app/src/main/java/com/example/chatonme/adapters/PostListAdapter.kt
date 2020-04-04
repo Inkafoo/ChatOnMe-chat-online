@@ -30,9 +30,7 @@ class PostListAdapter(
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.post_item, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return postList.size
-    }
+    override fun getItemCount(): Int = postList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = postList[position]
@@ -48,7 +46,7 @@ class PostListAdapter(
     }
 
     internal fun setPosts(posts: List<Post>) {
-        this.postList = postList
+        postList = posts
         notifyDataSetChanged()
     }
 

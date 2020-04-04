@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.adapters.PostListAdapter
 import com.example.chatonme.databinding.FragmentHomeBinding
+import com.example.chatonme.helpers.POSTS_REFERENCE
+import com.example.chatonme.models.PostsListViewModel
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
+    private val postsListViewModel: PostsListViewModel by inject()
     private val postListAdapter: PostListAdapter by inject()
     private lateinit var binding: FragmentHomeBinding
 
@@ -27,6 +31,19 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.recyclerPostView.adapter = postListAdapter
+
+        //postsListViewModel.getPosts(POSTS_REFERENCE)
+        //postsListViewModel.postList.observe(this, Observer { posts ->
+        //    users?.let {
+        //        postListAdapter.setPosts(it)
+        //    }
+        //})
+
+        //postsListViewModel.fetchEventData()
+        postsListViewModel.fetchEventData().observe(this, Observer {
+            postListAdapter.setPosts(it)
+        })
+
 
         navigateToAddPostListener(binding.addPostFloatingButton)
 
