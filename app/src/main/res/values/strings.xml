@@ -94,6 +94,9 @@
     <string name="post_date">00 Jun 2020 5:21 PM</string>
     <string name="post_title">Post title</string>
     <string name="post_description">Post description</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
 
 
 

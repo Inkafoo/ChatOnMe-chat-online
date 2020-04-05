@@ -22,7 +22,6 @@ class PostListAdapter(
         val authorImageView = itemView.findViewById<ImageView>(R.id.authorImageView)!!
         val authorNameTextView = itemView.findViewById<TextView>(R.id.authorNameTextView)!!
         val postTimeTextView = itemView.findViewById<TextView>(R.id.postTimeTextView)!!
-        val postTitleTextView = itemView.findViewById<TextView>(R.id.postTitleTextView)!!
         val postDescriptionTextView = itemView.findViewById<TextView>(R.id.postDescriptionTextView)!!
     }
 
@@ -38,7 +37,6 @@ class PostListAdapter(
         holder.apply {
             authorNameTextView.text = post.authorId
             postTimeTextView.text = post.publicationTime
-            postTitleTextView.text = post.title
             postDescriptionTextView.text = post.description
         }
 

@@ -41,23 +41,18 @@ class AddPostFragment : Fragment() {
      * Checks inputted post's data
      */
     private fun checkDataListener() {
-        val title = postTitleEditText.text.toString()
         val description = postDescriptionEditText.text.toString()
 
-        if(validatePostDetails(title, description)) {
-            uploadPost(title, description)
+        if(validatePostDetails(description)) {
+            uploadPost(description)
         }
     }
 
     /**
      * Displays errors when data are incorrect
      */
-    private fun validatePostDetails(title: String, description: String): Boolean {
+    private fun validatePostDetails(description: String): Boolean {
         var flag = true
-        if (!Validators.validatePostTitleLength(title)) {
-            binding.postTitleEditText.error = getString(R.string.title_post_error)
-            flag = false
-        }
         if (!Validators.validatePostDescriptionLength(description)) {
             binding.postDescriptionEditText.error = getString(R.string.post_description)
             flag = false
@@ -69,13 +64,12 @@ class AddPostFragment : Fragment() {
     /**
      * Sends post to firebase database
      */
-    private fun uploadPost(title: String, description: String) {
+    private fun uploadPost(description: String) {
         val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.uploading_post))
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val currentTime = Calendar.getInstance().time.toString()
 
         val post = Post(
-            title,
             description,
             currentUserId,
             currentTime

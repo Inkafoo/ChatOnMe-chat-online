@@ -10,10 +10,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PostsListViewModel() : ViewModel() {
+class PostsListViewModel : ViewModel() {
 
 
-    fun getPosts() : LiveData<MutableList<Post>> {
+    private fun getPosts() : LiveData<MutableList<Post>> {
         val data = MutableLiveData<MutableList<Post>>()
         val myList = mutableListOf<Post>()
 
