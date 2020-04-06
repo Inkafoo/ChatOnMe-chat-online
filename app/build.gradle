@@ -92,6 +92,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
+    //Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+
+
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }
 

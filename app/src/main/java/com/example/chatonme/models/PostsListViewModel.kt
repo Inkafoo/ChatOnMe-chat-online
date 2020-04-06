@@ -52,3 +52,34 @@ class PostsListViewModel : ViewModel() {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

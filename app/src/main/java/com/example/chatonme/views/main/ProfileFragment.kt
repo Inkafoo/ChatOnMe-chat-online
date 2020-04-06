@@ -23,7 +23,10 @@ import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage.getInstance
+import com.google.firebase.storage.ktx.storage
 import com.jakewharton.rxbinding2.view.RxView
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
@@ -60,7 +63,7 @@ class ProfileFragment : Fragment() {
      * Gets user's data and set to fragment layout
      */
     private fun setUserData() {
-        userProfileViewModel.getUser(currentUser!!.uid).observe(this, Observer { user ->
+        userProfileViewModel.getUserData(currentUser!!.uid).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
                 displayAgeTv.text = user.age
@@ -113,35 +116,36 @@ class ProfileFragment : Fragment() {
      * Uploads picked profile image to firebase
      */
     private fun uploadImage(uri: Uri) {
-       val progressDialog = customDialog.progressDialog(this.context!!, "Updating")
-       val storageReference = getInstance().reference.child(IMAGES_PROFILE  + currentUser?.uid)
-       val databaseReference = FirebaseDatabase.getInstance().reference.child(USERS_REFERENCE).child(currentUser!!.uid)
+        val progressDialog = customDialog.progressDialog(this.context!!, "Updating")
+        val firebaseStorageReference = Firebase.storage.reference
+        val firebaseDatabase = Firebase.firestore
+
+        val storageReference = firebaseStorageReference.child(IMAGES_PROFILE  + currentUser?.uid)
+        val databaseReference = firebaseDatabase.collection(USERS_REFERENCE).document(currentUser!!.uid)
 
         progressDialog.show()
 
-       storageReference.putFile(uri).addOnSuccessListener {
-           val uriTask = it.storage.downloadUrl
-           while (!uriTask.isSuccessful);
-           val uri: Uri = uriTask.result!!
-           if(uriTask.isSuccessful){
-               val results = HashMap<String, Any>()
-               results["image"] = uri.toString()
-               databaseReference.updateChildren(results)
-                   .addOnSuccessListener {
-                       messaging.showToast("success", getString(R.string.image_added_successfully))
-                       progressDialog.cancel()
-                   }.addOnFailureListener {
-                       messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
-                       progressDialog.cancel()
-                   }
-           }else{
-               messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
-               progressDialog.cancel()
-           }
-       }.addOnFailureListener{
-               messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
-               progressDialog.cancel()
-       }
+         storageReference.putFile(uri).addOnSuccessListener {
+             val uriTask = it.storage.downloadUrl
+             while (!uriTask.isSuccessful);
+             val uri: Uri = uriTask.result!!
+             val results = HashMap<String, Any>()
+             results["image"] = uri.toString()
+             if(uriTask.isSuccessful && uriTask.isComplete) {
+                 databaseReference.update(results)
+                     .addOnSuccessListener {
+                         messaging.showToast("success", getString(R.string.image_added_successfully))
+                         progressDialog.hide()
+                     }
+                     .addOnFailureListener{
+                         progressDialog.hide()
+                         messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
+                     }
+             }
+        }.addOnFailureListener{
+             progressDialog.hide()
+             messaging.showToast("error",  getString(R.string.something_went_wrong_try_again))
+         }
     }
 
     /**

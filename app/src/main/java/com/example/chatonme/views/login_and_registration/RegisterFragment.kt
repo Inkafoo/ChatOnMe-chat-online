@@ -1,6 +1,5 @@
 package com.example.chatonme.views.login_and_registration
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -20,19 +19,18 @@ import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_register.*
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-
 class RegisterFragment : Fragment() {
 
     private val messaging: Messaging by inject()
     private val customDialog: CustomDialog by inject()
-    private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +42,12 @@ class RegisterFragment : Fragment() {
         navigateToLoginFragment(binding.alreadyRegisteredButton)
         registerUserListener()
 
-        firebaseAuth = FirebaseAuth.getInstance()
 
         return binding.root
     }
 
     /**
-     * Get user's data and validate them
+     * Gets user's data and validate them
      */
     private fun registerUserListener(){
         RxView.clicks(binding.registerButton).map {
@@ -71,7 +68,7 @@ class RegisterFragment : Fragment() {
     }
 
     /**
-     * Check is user's registration data are correct
+     * Checks is user's registration data are correct
      */
     private fun  validateUser(
         name: String,
@@ -101,28 +98,30 @@ class RegisterFragment : Fragment() {
     }
 
     /**
-     * Create user in firebase database
+     * Creates user in firebase database
      */
     private fun createUserOnFirebase(email: String, password: String){
         val customDialog = customDialog.progressDialog(this.context!!, getString(R.string.registering_user))
+        val firebaseAuth = FirebaseAuth.getInstance()
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-            val currentUser = firebaseAuth.currentUser
-            val reference = firebaseDatabase.getReference(USERS_REFERENCE)
-            val user = User(
-                nameEditText.text.toString(),
-                currentUser!!.uid,
-                email
-            )
-            reference.child(currentUser.uid).setValue(user)
-            customDialog.cancel()
+         firebaseAuth.createUserWithEmailAndPassword(email, password)
+             .addOnSuccessListener {
+                 val currentUser = firebaseAuth.currentUser
+                 val user = User(
+                     nameEditText.text.toString(),
+                     currentUser!!.uid,
+                     email
+                 )
 
-            messaging.showToast("success", getString(R.string.registered_successfully))
-            navigate()
-        }.addOnFailureListener {
-            customDialog.cancel()
-            messaging.showToast("error", it.message.toString())
-        }
+                 Firebase.firestore.collection(USERS_REFERENCE).document(currentUser.uid).set(user)
+                 customDialog.cancel()
+                 messaging.showToast("success", getString(R.string.registered_successfully))
+                 navigate()
+             }.addOnFailureListener {
+                 customDialog.cancel()
+                 messaging.showToast("error", it.message.toString())
+             }
+
     }
 
     /**
@@ -144,7 +143,7 @@ class RegisterFragment : Fragment() {
     }
 
     /**
-     * Set color of part alreadyRegisteredButton text
+     * Sets color of part alreadyRegisteredButton text
      */
     private fun setRegisteredButtonTextColor(){
         val spannable = SpannableString(getString(R.string.already_member_login_me))

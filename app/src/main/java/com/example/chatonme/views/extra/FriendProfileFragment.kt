@@ -50,7 +50,7 @@ class FriendProfileFragment : Fragment() {
      * Shows friend's profile data in view
      */
     private fun setFriendProfileData(){
-        userProfileViewModel.getUser(selectedUser.uid!!).observe(this, Observer { user ->
+        userProfileViewModel.getUserData(selectedUser.uid!!).observe(this, Observer { user ->
             binding.apply {
                 displayPresentationTv.text = user.presentation
                 displayAgeTv.text = user.age

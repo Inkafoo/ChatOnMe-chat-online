@@ -4,35 +4,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.USERS_REFERENCE
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
-class UserProfileViewModel(val messaging: Messaging) : ViewModel() {
-    val user: MutableLiveData<User> = MutableLiveData()
+class UserProfileViewModel(private val messaging: Messaging) : ViewModel() {
+    private val userList: MutableLiveData<User> = MutableLiveData()
 
     /**
-     * get current user data
+     * Gets current user data
      */
-    fun getUser(currentUserId: String): MutableLiveData<User> {
-        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(item in snapshot.children){
-                    val modelUser: User = item.getValue(User::class.java)!!
+    fun getUserData(currentUserId: String): MutableLiveData<User> {
+        Firebase.firestore.collection(USERS_REFERENCE).get()
+            .addOnSuccessListener {
+                for(document in it){
+                    val modelUser: User = document.toObject()
 
                     if(modelUser.uid == currentUserId){
-                        user.value = modelUser
+                        userList.value = modelUser
                     }
-
                 }
             }
-            override fun onCancelled(error: DatabaseError) {
-                messaging.showToast("error", error.message)
+            .addOnFailureListener {
+                messaging.showToast("error", it.message.toString())
             }
-        })
-        return user
+
+        return userList
     }
+
+
 
 }

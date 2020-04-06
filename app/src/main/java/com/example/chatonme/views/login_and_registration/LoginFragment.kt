@@ -20,6 +20,8 @@ import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.Validators
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -68,17 +70,18 @@ class LoginFragment : Fragment() {
      */
     private fun requestFirebaseCredentialValidation(email: String, password: String) {
        val progressDialog = customDialog.progressDialog(this.context!!, getString(R.string.logging_in))
+
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-           if(it.isSuccessful){
-               navigateToHome()
-               progressDialog.cancel()
-               messaging.showToast("success",getString(R.string.logged_in))
-           }else{
-               progressDialog.cancel()
-               messaging.showToast("error", it.exception!!.message.toString())
-           }
-        }
+                if(it.isSuccessful){
+                    navigateToHome()
+                    progressDialog.cancel()
+                    messaging.showToast("success",getString(R.string.logged_in))
+                }else{
+                    progressDialog.cancel()
+                    messaging.showToast("error", it.exception!!.message.toString())
+                }
+            }
     }
 
 
