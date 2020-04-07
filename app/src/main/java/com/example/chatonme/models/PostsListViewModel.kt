@@ -8,36 +8,27 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.toObject
 
 class PostsListViewModel(private val messaging: Messaging) : ViewModel() {
-    private val mutableLiveDataList = MutableLiveData<MutableList<Post>>()
-    private val postList = mutableListOf<Post>()
+    val postList = MutableLiveData<MutableList<Post>>()
 
     /**
      * Gets post list from database
      */
-    private fun getPostList(databaseReference: CollectionReference) : LiveData<MutableList<Post>> {
+    fun getPostList(databaseReference: CollectionReference) : LiveData<MutableList<Post>> {
+        val mutableLiveDataList = mutableListOf<Post>()
         databaseReference.get()
             .addOnSuccessListener {
                 for (document in it) {
                     val post: Post = document.toObject()
 
-                    postList.add(post)
+                    mutableLiveDataList.add(post)
                 }
-                mutableLiveDataList.value = postList
+                postList.value = mutableLiveDataList
             }
             .addOnFailureListener {
                 messaging.showToast("error", it.message.toString())
             }
 
-        return mutableLiveDataList
-    }
-
-    fun showPostList(databaseReference: CollectionReference): LiveData<MutableList<Post>> {
-        val mutableData = MutableLiveData<MutableList<Post>>()
-        getPostList(databaseReference).observeForever { postList ->
-            mutableData.value = postList
-        }
-
-        return mutableData
+        return postList
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.chatonme.views.main
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,10 +20,10 @@ import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
+    private val databaseReference = Firebase.firestore.collection(POSTS_REFERENCE)
     private val postsListViewModel: PostsListViewModel by inject()
     private val postListAdapter: PostListAdapter by inject()
-    private val databaseReference = Firebase.firestore.collection(POSTS_REFERENCE)
-    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +34,11 @@ class HomeFragment : Fragment() {
 
         binding.recyclerPostView.adapter = postListAdapter
 
-        postsListViewModel.showPostList(databaseReference).observe(this, Observer {
-            postListAdapter.setPosts(it)
+        postsListViewModel.getPostList(databaseReference)
+        postsListViewModel.postList.observe(this, Observer { posts ->
+            posts?.let {
+                postListAdapter.setPosts(it)
+            }
         })
 
         navigateToAddPostListener(binding.addPostFloatingButton)

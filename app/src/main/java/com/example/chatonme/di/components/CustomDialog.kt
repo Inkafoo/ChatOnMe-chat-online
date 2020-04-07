@@ -7,10 +7,16 @@ import dmax.dialog.SpotsDialog
 
 class CustomDialog {
 
+    /**
+     * Returns material dialog object
+     */
     fun materialDialog(context: Context): MaterialDialog {
         return MaterialDialog(context)
     }
 
+    /**
+     * Displays progressDialog on the screen
+     */
     fun progressDialog(context: Context, message: String): AlertDialog {
         return SpotsDialog.Builder()
             .setContext(context)

@@ -1,6 +1,5 @@
 package com.example.chatonme.views.main
 
-
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -22,24 +21,21 @@ import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.models.UserProfileViewModel
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage.getInstance
 import com.google.firebase.storage.ktx.storage
 import com.jakewharton.rxbinding2.view.RxView
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-
 class ProfileFragment : Fragment() {
 
+    private lateinit var binding: FragmentProfileBinding
+    private val currentUser =  FirebaseAuth.getInstance().currentUser
     private val userProfileViewModel: UserProfileViewModel by inject()
     private val messaging: Messaging by  inject()
     private val customDialog: CustomDialog by  inject()
     private val imageProcessing: ImageProcessing by  inject()
-    private val currentUser =  FirebaseAuth.getInstance().currentUser
-    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -6,7 +6,6 @@ import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.models.PostsListViewModel
-import com.example.chatonme.models.User
 import com.example.chatonme.models.UserProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -20,7 +19,7 @@ object AppModule {
         single { FriendsList(androidContext()) }
         single { UserListAdapter(androidContext(), ImageProcessing(androidContext()), CustomDialog()) }
         single { PostListAdapter(androidContext(), ImageProcessing(androidContext())) }
-        viewModel { UsersListViewModel() }
+        viewModel { UsersListViewModel(Messaging(androidContext())) }
         viewModel { PostsListViewModel(Messaging(androidContext())) }
         viewModel { UserProfileViewModel(Messaging(androidContext())) }
     }

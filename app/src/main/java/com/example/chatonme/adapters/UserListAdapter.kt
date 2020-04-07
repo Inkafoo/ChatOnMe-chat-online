@@ -14,14 +14,13 @@ import com.example.chatonme.R
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.User
-import com.example.chatonme.models.Users
 
 class UserListAdapter(
     private val context: Context,
     private val imageProcessing: ImageProcessing,
     private val customDialog: CustomDialog
 ) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
-    private var users = emptyList<Users>()
+    private var users = emptyList<User>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView = itemView.findViewById<TextView>(R.id.userNameTextView)!!
@@ -50,7 +49,7 @@ class UserListAdapter(
         }
     }
 
-    internal fun setUsers(users: List<Users>) {
+    internal fun setUsers(users: List<User>) {
         this.users = users
         notifyDataSetChanged()
     }

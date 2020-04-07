@@ -12,8 +12,6 @@ import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.Post
 import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_add_post.*
@@ -23,9 +21,9 @@ import java.util.*
 
 class AddPostFragment : Fragment() {
 
+    private lateinit var binding: FragmentAddPostBinding
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
-    private lateinit var binding: FragmentAddPostBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

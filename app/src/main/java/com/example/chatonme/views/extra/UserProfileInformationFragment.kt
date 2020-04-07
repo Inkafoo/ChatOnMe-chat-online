@@ -11,12 +11,15 @@ import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentUserProfileInformationBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.POSTS_REFERENCE
 import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.UserProfileViewModel
 import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -27,13 +30,12 @@ import java.util.concurrent.TimeUnit
 
 class UserProfileInformationFragment : Fragment() {
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val referenceUsers = firebaseDatabase.getReference(USERS_REFERENCE)
+    private lateinit var binding: FragmentUserProfileInformationBinding
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val databaseReference = Firebase.firestore.collection(USERS_REFERENCE)
     private val userProfileViewModel: UserProfileViewModel by inject()
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
-    private lateinit var binding: FragmentUserProfileInformationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,15 +139,16 @@ class UserProfileInformationFragment : Fragment() {
     ){
         val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.updating_information))
 
-        firebaseDatabase.reference.child(USERS_REFERENCE).child(currentUser!!.uid).apply {
-            child("presentation").setValue(presentation)
-            child("name").setValue(name)
-            child("age").setValue(age)
-            child("country").setValue(country)
+        databaseReference.document(currentUser!!.uid).apply {
+            update("presentation",  presentation)
+            update("name",  name)
+            update("age",  age)
+            update("country",  country)
                 .addOnSuccessListener {
                     progressBar.cancel()
                     messaging.showToast("success", getString(R.string.information_updated_successfully))
-                }.addOnFailureListener{
+                }
+                .addOnFailureListener{
                     progressBar.cancel()
                     messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
                 }
@@ -181,8 +184,8 @@ class UserProfileInformationFragment : Fragment() {
     private fun updateEmail(email: String){
         currentUser!!.updateEmail(email)
             .addOnCompleteListener {
+                databaseReference.document(currentUser.uid).update("email" , email)
                 messaging.showToast("success", getString(R.string.email_updated_successfully))
-                referenceUsers.child(FirebaseAuth.getInstance().currentUser!!.uid).child("email").setValue(email)
             }
             .addOnFailureListener {
                 messaging.showToast("error", getString(R.string.failed_to_update_email))

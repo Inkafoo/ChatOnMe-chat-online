@@ -1,39 +1,40 @@
 package com.example.chatonme.models
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.chatonme.helpers.USERS_REFERENCE
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.example.chatonme.di.components.Messaging
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.toObject
 
-class UsersListViewModel : ViewModel() {
-    private val mutableLiveDataList = MutableLiveData<List<User>>()
-    private val userList = mutableListOf<User>()
+class UsersListViewModel(private val messaging: Messaging) : ViewModel() {
+    val userList = MutableLiveData<MutableList<User>>()
 
     /**
-     * Gets registered users list
+     * Gets registered users from database
      */
-    fun getRegisteredUsers(currentUserId: String){
-        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
+    fun getUserList(
+        currentUserId: String,
+        databaseReference: CollectionReference
+    ) : LiveData<MutableList<User>> {
+        val mutableLiveDataList = mutableListOf<User>()
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(this.toString(), error.message )
-            }
+        databaseReference.get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val user: User = document.toObject()
 
-            override fun onDataChange(p0: DataSnapshot) {
-                for (dataSnapShot in p0.children) {
-                    val user = dataSnapShot.getValue(User::class.java)
-
-                    if(currentUserId != user!!.uid){
-                        mutableLiveDataList.value = user
+                    if(user.uid != currentUserId) {
+                        mutableLiveDataList.add(user)
                     }
                 }
-                userLists.postValue(users)
+                userList.value = mutableLiveDataList
             }
-        })
+            .addOnFailureListener {
+                messaging.showToast("error", it.message.toString())
+            }
+
+        return userList
     }
 
 }

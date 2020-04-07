@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chatonme.R
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.Post
-import com.example.chatonme.models.Users
 
 class PostListAdapter(
     private val context: Context,

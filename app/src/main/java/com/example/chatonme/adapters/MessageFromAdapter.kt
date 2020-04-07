@@ -8,8 +8,6 @@ import com.example.chatonme.models.ChatMessage
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.chat_message_from_item.view.*
-import kotlinx.android.synthetic.main.chat_message_to_item.view.*
-
 
 class MessageFromAdapter (
     private val message: ChatMessage,

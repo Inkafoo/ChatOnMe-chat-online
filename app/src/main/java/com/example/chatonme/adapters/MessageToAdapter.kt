@@ -15,7 +15,6 @@ class MessageToAdapter(
     private val imageProcessing: ImageProcessing
 ): Item<GroupieViewHolder>(){
 
-
     override fun getLayout(): Int = R.layout.chat_message_to_item
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
@@ -25,10 +24,9 @@ class MessageToAdapter(
         viewHolder.itemView.textMessageTo.setOnClickListener {
             showMessageDate(viewHolder, message.date)
         }
-
     }
 
-    private fun showMessageDate(viewHolder: GroupieViewHolder, date: Long){
+    private fun showMessageDate(viewHolder: GroupieViewHolder, date: Long) {
         val isVisible =  viewHolder.itemView.dateTextViewMessageTo.visibility
         viewHolder.itemView.dateTextViewMessageTo.text = FormatDate.getFormattedTime(date)
 
@@ -37,7 +35,6 @@ class MessageToAdapter(
         }else{
             viewHolder.itemView.dateTextViewMessageTo.visibility = View.VISIBLE
         }
-
     }
 
 }

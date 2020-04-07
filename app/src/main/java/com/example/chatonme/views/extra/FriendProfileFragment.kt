@@ -1,32 +1,25 @@
 package com.example.chatonme.views.extra
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.lifecycle.Observer
-import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentFriendProfileBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.models.User
 import com.example.chatonme.models.UserProfileViewModel
 import com.example.chatonme.views.start.BasicActivity
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlinx.android.synthetic.main.fragment_main.view.homeToolbar
 import org.koin.android.ext.android.inject
-
 
 class FriendProfileFragment : Fragment() {
 
-    private val userProfileViewModel: UserProfileViewModel by inject()
-    private val imageProcessing: ImageProcessing by  inject()
     private lateinit var selectedUser: User
     private lateinit var binding: FragmentFriendProfileBinding
+    private val userProfileViewModel: UserProfileViewModel by inject()
+    private val imageProcessing: ImageProcessing by  inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +32,6 @@ class FriendProfileFragment : Fragment() {
         selectedUser = arguments!!.getParcelable("selectedUser")!!
 
         setFriendProfileData()
-
 
 
 

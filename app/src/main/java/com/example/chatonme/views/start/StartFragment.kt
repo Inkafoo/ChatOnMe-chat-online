@@ -1,6 +1,5 @@
 package com.example.chatonme.views.start
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,12 +18,11 @@ import com.jakewharton.rxbinding2.view.RxView
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-
 class StartFragment : Fragment() {
 
-    private val imageProcessing: ImageProcessing by inject()
     private lateinit var binding: FragmentStartBinding
     private lateinit var dotIndicators: MutableList<TextView>
+    private val imageProcessing: ImageProcessing by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

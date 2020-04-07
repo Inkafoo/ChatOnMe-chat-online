@@ -11,6 +11,7 @@ import com.example.chatonme.adapters.MessageToAdapter
 import com.example.chatonme.databinding.FragmentChatBinding
 import com.example.chatonme.di.components.ImageProcessing
 import com.example.chatonme.di.components.Messaging
+import com.example.chatonme.helpers.POSTS_REFERENCE
 import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.USER_MESSAGES
 import com.example.chatonme.models.ChatMessage
@@ -18,6 +19,10 @@ import com.example.chatonme.models.User
 import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -28,16 +33,17 @@ import java.util.concurrent.TimeUnit
 
 class ChatFragment : Fragment() {
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
+    private lateinit var currentUserData: User
+    private lateinit var selectedUser: User
+    private lateinit var fromReferenceDatabase: CollectionReference
+    private lateinit var toReferenceDatabase: CollectionReference
+    private lateinit var binding: FragmentChatBinding
+    private val database = Firebase.firestore
+    private val usersReference = Firebase.firestore.collection(USERS_REFERENCE)
     private val currentUser =  FirebaseAuth.getInstance().currentUser!!
     private val adapter = GroupAdapter<GroupieViewHolder>()
     private val messaging: Messaging by inject()
     private val imageProcessing: ImageProcessing by inject()
-    private lateinit var currentUserData: User
-    private lateinit var selectedUser: User
-    private lateinit var fromReferenceDatabase: DatabaseReference
-    private lateinit var toReferenceDatabase: DatabaseReference
-    private lateinit var binding: FragmentChatBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +55,9 @@ class ChatFragment : Fragment() {
 
         //init variable
         selectedUser = arguments!!.getParcelable("selectedUser")!!
-        fromReferenceDatabase = firebaseDatabase.getReference(USER_MESSAGES + "${currentUser.uid}/${selectedUser.uid}")
-        toReferenceDatabase = firebaseDatabase.getReference(USER_MESSAGES + "${selectedUser.uid}/${currentUser.uid}")
+
+        fromReferenceDatabase = database.collection(USER_MESSAGES + "${currentUser.uid}/${selectedUser.uid}")
+        toReferenceDatabase = database.collection(USER_MESSAGES + "${selectedUser.uid}/${currentUser.uid}")
 
 
         setUpToolbarData()
@@ -66,7 +73,7 @@ class ChatFragment : Fragment() {
     /**
      * Sets chat partner's name, age and image
      */
-    private fun setUpToolbarData(){
+    private fun setUpToolbarData() {
         binding.pickedUserNameTextView.text = "${selectedUser.name}"
         binding.pickedUserAgeTextView.text = "${selectedUser.age}"
 
@@ -76,58 +83,60 @@ class ChatFragment : Fragment() {
     /**
      * Gets data about current user from firebase
      */
-    private fun getCurrentUserData(){
-        FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(item in snapshot.children){
-                    currentUserData  = item.getValue(User::class.java)!!
+    private fun getCurrentUserData() {
+        usersReference.get()
+            .addOnSuccessListener {
+                for(item in it) {
+                    currentUserData = item.toObject()
                 }
             }
-            override fun onCancelled(error: DatabaseError) {
-                messaging.showToast("error", error.message)
+            .addOnFailureListener {
+                messaging.showToast("error", it.message.toString())
             }
-        })
-
     }
 
     /**
      * Listens for messages and show in recyclerView
      */
-    private fun listenerForMessages(){
-        fromReferenceDatabase.addChildEventListener(object: ChildEventListener{
-            override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
-                val chatMessage = dataSnapshot.getValue(ChatMessage::class.java)
+    private fun listenerForMessages() {
+        fromReferenceDatabase.document(selectedUser.uid.toString()).addSnapshotListener { snapshot, e ->
+            val chatMessage = snapshot?.toObject(ChatMessage::class.java)
 
-                if(chatMessage!!.fromId == currentUser.uid){
-                    adapter.add(MessageToAdapter(
-                        chatMessage,
-                        currentUserData.image.toString(),
-                        imageProcessing = ImageProcessing(activity!!.applicationContext)))
-                }else{
-                    adapter.add(MessageFromAdapter(
-                        chatMessage,
-                        selectedUser.image!!,
-                        imageProcessing = ImageProcessing(activity!!.applicationContext)))
+            if(snapshot != null && snapshot.exists()){
+                if (chatMessage!!.fromId == currentUser.uid) {
+                    adapter.add(
+                        MessageToAdapter(
+                            chatMessage,
+                            currentUserData.image.toString(),
+                            imageProcessing = ImageProcessing(activity!!.applicationContext)
+                        )
+                    )
+                } else {
+                    adapter.add(
+                        MessageFromAdapter(
+                            chatMessage,
+                            selectedUser.image!!,
+                            imageProcessing = ImageProcessing(activity!!.applicationContext)
+                        )
+                    )
                 }
-
                 chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
 
+            } else {
+                if (e != null) {
+                    messaging.showToast("error", e.message.toString())
+                } else {
+                    messaging.showToast("error", "error")
+                }
             }
-
-            override fun onCancelled(p0: DatabaseError) {}
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {}
-
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
-
-            override fun onChildRemoved(p0: DataSnapshot) {}
-        })
+        }
     }
+
 
     /**
      *  Sends message button listener
      */
-    private fun sendMessageListener(view: View){
+    private fun sendMessageListener(view: View) {
         RxView.clicks(view).map {
             val currentTime = System.currentTimeMillis() / 1000
             val textMessage = binding.messageEditText.text.toString()
@@ -144,7 +153,7 @@ class ChatFragment : Fragment() {
                         currentTime
                     )
 
-                toReferenceDatabase.push().setValue(chatMessage)
+                toReferenceDatabase.add(chatMessage)
                     .addOnSuccessListener {
                         binding.messageEditText.text.clear()
                         chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
@@ -152,7 +161,7 @@ class ChatFragment : Fragment() {
                         messaging.showToast("error", it.message.toString())
                     }
 
-                fromReferenceDatabase.push().setValue(chatMessage)
+                fromReferenceDatabase.add(chatMessage)
                     .addOnSuccessListener {
                         binding.messageEditText.text.clear()
                     }.addOnFailureListener {

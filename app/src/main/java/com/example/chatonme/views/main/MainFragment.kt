@@ -1,6 +1,5 @@
 package com.example.chatonme.views.main
 
-
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
-
 
 class MainFragment : Fragment() {
 
