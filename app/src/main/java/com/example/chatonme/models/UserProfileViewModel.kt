@@ -12,12 +12,12 @@ class UserProfileViewModel(private val messaging: Messaging) : ViewModel() {
     private val userList: MutableLiveData<User> = MutableLiveData()
 
     /**
-     * Gets current user data
+     * Gets current user data from database
      */
     fun getUserData(currentUserId: String): MutableLiveData<User> {
         Firebase.firestore.collection(USERS_REFERENCE).get()
             .addOnSuccessListener {
-                for(document in it){
+                for(document in it) {
                     val modelUser: User = document.toObject()
 
                     if(modelUser.uid == currentUserId){
@@ -31,7 +31,5 @@ class UserProfileViewModel(private val messaging: Messaging) : ViewModel() {
 
         return userList
     }
-
-
 
 }

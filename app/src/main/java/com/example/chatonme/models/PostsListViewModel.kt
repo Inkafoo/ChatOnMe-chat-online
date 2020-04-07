@@ -1,58 +1,46 @@
 package com.example.chatonme.models
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.chatonme.helpers.POSTS_REFERENCE
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.example.chatonme.di.components.Messaging
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.toObject
 
-class PostsListViewModel : ViewModel() {
+class PostsListViewModel(private val messaging: Messaging) : ViewModel() {
+    private val mutableLiveDataList = MutableLiveData<MutableList<Post>>()
+    private val postList = mutableListOf<Post>()
 
+    /**
+     * Gets post list from database
+     */
+    private fun getPostList(databaseReference: CollectionReference) : LiveData<MutableList<Post>> {
+        databaseReference.get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val post: Post = document.toObject()
 
-    private fun getPosts() : LiveData<MutableList<Post>> {
-        val data = MutableLiveData<MutableList<Post>>()
-        val myList = mutableListOf<Post>()
-
-        FirebaseDatabase.getInstance().getReference(POSTS_REFERENCE).addValueEventListener(object : ValueEventListener {
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(this.toString(), error.message )
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                for (dataSnapShot in p0.children) {
-                    val post = dataSnapShot.getValue(Post::class.java)
-
-                    if (post != null) {
-                        myList.add(post)
-                    }
-
+                    postList.add(post)
                 }
-
-                data.value = myList
+                mutableLiveDataList.value = postList
             }
-        })
+            .addOnFailureListener {
+                messaging.showToast("error", it.message.toString())
+            }
 
-        return data
-        }
+        return mutableLiveDataList
+    }
 
-
-    fun fetchEventData():LiveData<MutableList<Post>>{
+    fun showPostList(databaseReference: CollectionReference): LiveData<MutableList<Post>> {
         val mutableData = MutableLiveData<MutableList<Post>>()
-        getPosts().observeForever { eventList ->
-            mutableData.value = eventList
+        getPostList(databaseReference).observeForever { postList ->
+            mutableData.value = postList
         }
 
         return mutableData
     }
 
 }
-
-
 
 
 

@@ -10,10 +10,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class UsersListViewModel : ViewModel() {
-    val userLists: MutableLiveData<List<Users>> = MutableLiveData()
+    private val mutableLiveDataList = MutableLiveData<List<User>>()
+    private val userList = mutableListOf<User>()
 
     /**
-     * get registered users list
+     * Gets registered users list
      */
     fun getRegisteredUsers(currentUserId: String){
         FirebaseDatabase.getInstance().getReference(USERS_REFERENCE).addValueEventListener(object : ValueEventListener {
@@ -23,12 +24,11 @@ class UsersListViewModel : ViewModel() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                val users = mutableListOf<Users>()
                 for (dataSnapShot in p0.children) {
-                    val user = dataSnapShot.getValue(Users::class.java)
+                    val user = dataSnapShot.getValue(User::class.java)
 
                     if(currentUserId != user!!.uid){
-                        users.add(user)
+                        mutableLiveDataList.value = user
                     }
                 }
                 userLists.postValue(users)

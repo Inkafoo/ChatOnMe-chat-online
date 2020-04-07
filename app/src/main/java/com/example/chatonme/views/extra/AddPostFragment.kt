@@ -13,6 +13,9 @@ import com.example.chatonme.models.Post
 import com.example.chatonme.views.start.BasicActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -20,8 +23,6 @@ import java.util.*
 
 class AddPostFragment : Fragment() {
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val referencePosts = firebaseDatabase.getReference(POSTS_REFERENCE)
     private val customDialog: CustomDialog by inject()
     private val messaging: Messaging by inject()
     private lateinit var binding: FragmentAddPostBinding
@@ -65,6 +66,8 @@ class AddPostFragment : Fragment() {
      * Sends post to firebase database
      */
     private fun uploadPost(description: String) {
+        val firebaseDatabase = Firebase.firestore
+        val referencePost = firebaseDatabase.collection(POSTS_REFERENCE)
         val progressBar = customDialog.progressDialog(this.context!!, getString(R.string.uploading_post))
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val currentTime = Calendar.getInstance().time.toString()
@@ -75,7 +78,7 @@ class AddPostFragment : Fragment() {
             currentTime
         )
 
-        referencePosts.push().setValue(post)
+        referencePost.add(post)
             .addOnSuccessListener {
                 progressBar.cancel()
                 messaging.showToast("success", getString(R.string.posted_successfully))
