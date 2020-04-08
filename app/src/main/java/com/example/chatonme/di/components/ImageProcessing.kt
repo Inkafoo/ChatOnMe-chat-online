@@ -25,12 +25,12 @@ import com.example.chatonme.R
      /**
       * Handles images from database
       */
-    fun setImage(url: String, target: ImageView){
+    fun setImage(url: String, target: ImageView) {
         Glide
             .with(context)
             .load(url)
-            .error(R.drawable.ic_account_circle)
-            .placeholder(R.drawable.ic_account_circle)
+            .error(R.drawable.ic_account_circle_grey)
+            .placeholder(R.drawable.ic_account_circle_grey)
             .centerCrop()
             .apply(RequestOptions.circleCropTransform())
             .into(target)

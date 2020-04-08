@@ -2,7 +2,7 @@
 
 buildscript {
     //Kotlin version
-    ext.kotlin_version = '1.3.61'
+    ext.kotlin_version = '1.3.71'
 
     //Navigation architecture
     ext.nav_version = '1.0.0'
@@ -52,6 +52,15 @@ buildscript {
 
     //Coroutines
     ext.coroutines = '1.3.5'
+
+    //Lifecycle
+    ext.lifecycle = '2.2.0'
+
+    //Firestore
+    ext.firestore = '21.4.2'
+
+    //Firestore storage
+    ext.firestore_storage = '19.1.1'
 
 
 

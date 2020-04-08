@@ -14,8 +14,7 @@ open class User(
     val age: String?=""
 
 ): Parcelable{
-
-   fun toMap(): Map<String, Any?> {
+    fun toMap(): Map<String, Any?> {
       return mapOf(
          "name" to name,
          "uid" to uid,
@@ -26,6 +25,5 @@ open class User(
          "age" to age
       )
    }
-
 }
 

@@ -126,7 +126,7 @@ class ChatFragment : Fragment() {
                 if (e != null) {
                     messaging.showToast("error", e.message.toString())
                 } else {
-                    messaging.showToast("error", "error")
+                    messaging.showToast("error", getString(R.string.something_went_wrong_try_again))
                 }
             }
         }

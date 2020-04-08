@@ -8,6 +8,7 @@ import com.example.chatonme.databinding.FragmentAddPostBinding
 import com.example.chatonme.di.components.CustomDialog
 import com.example.chatonme.di.components.Messaging
 import com.example.chatonme.helpers.POSTS_REFERENCE
+import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.Post
 import com.example.chatonme.views.start.BasicActivity

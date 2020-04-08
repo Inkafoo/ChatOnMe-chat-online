@@ -14,7 +14,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="32dp"
-            android:src="@drawable/ic_account_circle"
+            android:src="@drawable/ic_account_circle_grey"
             android:contentDescription="@string/icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

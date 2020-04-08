@@ -13,6 +13,7 @@ import org.koin.dsl.module
 
 object AppModule {
     val appModule = module{
+
         single { Messaging(androidContext()) }
         single { ImageProcessing(androidContext()) }
         single { CustomDialog() }
@@ -22,5 +23,6 @@ object AppModule {
         viewModel { UsersListViewModel(Messaging(androidContext())) }
         viewModel { PostsListViewModel(Messaging(androidContext())) }
         viewModel { UserProfileViewModel(Messaging(androidContext())) }
+
     }
 }
