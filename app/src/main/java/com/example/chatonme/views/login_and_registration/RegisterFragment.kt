@@ -18,7 +18,6 @@ import com.example.chatonme.helpers.USERS_REFERENCE
 import com.example.chatonme.helpers.Validators
 import com.example.chatonme.models.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding2.view.RxView

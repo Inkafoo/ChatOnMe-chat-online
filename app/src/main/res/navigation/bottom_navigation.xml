@@ -84,6 +84,10 @@
         android:id="@+id/addPostFragment"
         android:name="com.example.chatonme.views.extra.AddPostFragment"
         android:label="Create Post"
-        tools:layout="@layout/fragment_add_post"/>
+        tools:layout="@layout/fragment_add_post">
+        <action
+            android:id="@+id/action_addPostFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
 </navigation>

@@ -150,7 +150,7 @@ class LoginFragment : Fragment() {
     }
 
     /**
-     * Navigate to connectBottomNavigationFragment
+     * Navigates to connectBottomNavigationFragment
      */
     private fun navigateToHome(){
         when (findNavController().currentDestination!!.id) {

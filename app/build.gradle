@@ -59,12 +59,6 @@ dependencies {
     //Firebase UI Auth
     implementation "com.firebaseui:firebase-ui-auth:$firebase_ui_auth"
 
-    //Firebase Database
-    implementation "com.google.firebase:firebase-database:$firebase_database_version"
-
-    //Firebase Storage
-    implementation "com.firebaseui:firebase-ui-storage:$firebase_storage_version"
-
     //Circle Image View
     implementation "de.hdodenhof:circleimageview:$circle_image_version"
 

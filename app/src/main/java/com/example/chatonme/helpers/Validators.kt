@@ -17,7 +17,10 @@ class Validators {
             return password.length >= 5
         }
 
-        fun validatePasswordConfirmation(password: String, confirmPassword: String): Boolean {
+        fun validatePasswordConfirmation(
+            password: String,
+            confirmPassword: String
+        ): Boolean {
             return password == confirmPassword && validatePasswordLength(
                 password
             ) && validatePasswordLength(
@@ -60,10 +63,6 @@ class Validators {
                     validateName(name) &&
                     validateAge(age) &&
                     validateCountryLength(country)
-        }
-
-        fun validatePostTitleLength(title: String): Boolean {
-            return title.length > 4
         }
 
         fun validatePostDescriptionLength(description: String): Boolean {

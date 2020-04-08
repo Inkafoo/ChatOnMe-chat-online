@@ -18,11 +18,10 @@ object AppModule {
         single { ImageProcessing(androidContext()) }
         single { CustomDialog() }
         single { FriendsList(androidContext()) }
-        single { UserListAdapter(androidContext(), ImageProcessing(androidContext()), CustomDialog()) }
-        single { PostListAdapter(androidContext(), ImageProcessing(androidContext())) }
-        viewModel { UsersListViewModel(Messaging(androidContext())) }
-        viewModel { PostsListViewModel(Messaging(androidContext())) }
-        viewModel { UserProfileViewModel(Messaging(androidContext())) }
-
+        single { UserListAdapter(androidContext(), get(), get()) }
+        single { PostListAdapter(androidContext(), get()) }
+        viewModel { UsersListViewModel(get()) }
+        viewModel { PostsListViewModel(get()) }
+        viewModel { UserProfileViewModel(get()) }
     }
 }

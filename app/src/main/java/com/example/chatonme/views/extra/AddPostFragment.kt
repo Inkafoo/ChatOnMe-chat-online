@@ -1,8 +1,11 @@
 package com.example.chatonme.views.extra
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.chatonme.R
 import com.example.chatonme.databinding.FragmentAddPostBinding
 import com.example.chatonme.di.components.CustomDialog
@@ -81,11 +84,22 @@ class AddPostFragment : Fragment() {
             .addOnSuccessListener {
                 progressBar.cancel()
                 messaging.showToast("success", getString(R.string.posted_successfully))
+                navigateToHomeFragment()
             }
             .addOnFailureListener {
                 progressBar.cancel()
                 messaging.showToast("error", it.message.toString())
             }
+    }
+
+
+    /**
+     * Navigates to connectBottomNavigationFragment
+     */
+    private fun navigateToHomeFragment() {
+        when (findNavController().currentDestination!!.id) {
+            R.id.addPostFragment -> findNavController().navigate(R.id.action_addPostFragment_to_homeFragment)
+        }
     }
 
     /**
